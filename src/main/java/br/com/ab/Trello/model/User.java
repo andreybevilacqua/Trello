@@ -20,6 +20,7 @@ public class User implements Serializable {
 	private String login;
 	private String pass;
 	
+	
 	public User(){
 		
 	}
