@@ -20,10 +20,10 @@ public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@PersistenceContext
-	private EntityManager em;
+	private EntityManager entityManager;
 	
 	@Resource
-	private UserTransaction ut;
+	private UserTransaction userTransaction;
 
 	public TestServlet() {
 		super();
@@ -31,19 +31,19 @@ public class TestServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		User u = new User();
-		u.setLogin("Andrey");
-		u.setPassword("teste");
+		User user = new User();
+		user.setLogin("Andrey");
+		user.setPassword("teste");
 
 		try{
-			ut.begin();
-			em.persist(u);
-			ut.commit();
+			userTransaction.begin();
+			entityManager.persist(user);
+			userTransaction.commit();
 		} catch (Exception e){
 			throw new ServletException(e);
 		}
 
-		response.getWriter().append("Usuario " + u.getLogin() + " criado no banco.").close();
+		response.getWriter().append("Usuario " + user.getLogin() + " criado no banco.").close();
 		
 	}
 
