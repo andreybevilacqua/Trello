@@ -33,13 +33,16 @@ public class ListDao {
 	public List findListByDashboardId(Integer dashboard_id){
 		String query = "SELECT l FROM list l, dashboard d WHERE l.dashboard_id = :pDashboard_id";
 		
-		TypedQuery<List> createQuery = (TypedQuery<List>) entityManager.createQuery(query);
-		TypedQuery<List> typedQuery = createQuery;
+		TypedQuery<List> typedQuery = (TypedQuery<List>) entityManager.createQuery(query);
 		typedQuery.setParameter("pDashboard_id", dashboard_id);
 		
 		List list = (List) typedQuery.getSingleResult();
 		
 		return list;
+	}
+	
+	public void deleteList(List list){
+		entityManager.remove(list);
 	}
 
 }
