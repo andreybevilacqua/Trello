@@ -1,0 +1,42 @@
+
+
+CREATE USER 'trello'@'trello' IDENTIFIED BY 'sbs'; 
+	CREATE DATABASE trello;
+	GRANT ALL ON trello TO 'trello'@'localhost';
+
+
+	CREATE TABLE IF NOT EXISTS dashboard (
+  		dashboard_id int NOT NULL AUTO_INCREMENT,
+  		title text NOT NULL,
+      user_id int NOT NULL,
+  		PRIMARY KEY (dashboard_id),
+      FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+	);
+
+	CREATE TABLE IF NOT EXISTS list (
+  		list_id int NOT NULL AUTO_INCREMENT,
+      title text NOT NULL,
+      dashboard_id int NOT NULL,
+      PRIMARY KEY (list_id),
+      FOREIGN KEY (dashboard_id) REFERENCES dashboard(dashboard_id) ON DELETE CASCADE
+	);
+
+	CREATE TABLE IF NOT EXISTS card (
+  		card_id int NOT NULL AUTO_INCREMENT,
+      title text NOT NULL,
+      detail text,
+      list_id int NOT NULL,
+      PRIMARY KEY (card_id),
+      FOREIGN KEY (list_id) REFERENCES list(list_id) ON DELETE CASCADE
+	);
+
+  CREATE TABLE IF NOT EXISTS comment(
+    comment_id int NOT NULL AUTO_INCREMENT,
+    dateOfTheComment date NOT NULL,
+    comment text NOT NULL,
+    card_id int NOT NULL,
+    user_id int NOT NULL,
+    PRIMARY KEY (comment_id),
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (card_id) REFERENCES card(card_id) ON DELETE CASCADE
+  );

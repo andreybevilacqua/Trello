@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Card {
@@ -15,6 +16,8 @@ public class Card {
 	private String detail;
 	@ManyToOne
 	private Comment comment;
+	@OneToOne
+	private List list;
 	
 	public Card(){
 		
@@ -61,6 +64,14 @@ public class Card {
 
 	public void setComment(Comment comment) {
 		this.comment = comment;
+	}
+	
+	public List getList() {
+		return list;
+	}
+
+	public void setList(List list) {
+		this.list = list;
 	}
 
 }

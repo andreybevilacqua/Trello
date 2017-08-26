@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class List {
@@ -14,7 +15,17 @@ public class List {
 	private String title;
 	@ManyToOne
 	private Card card;
+	@OneToOne
+	private Dashboard dashboard;
 	
+	public Dashboard getDashboard() {
+		return dashboard;
+	}
+
+	public void setDashboard(Dashboard dashboard) {
+		this.dashboard = dashboard;
+	}
+
 	public List(){
 		
 	}
