@@ -15,15 +15,15 @@ public class UserService {
 	UserDao userDao;
 	
 	public void addUser(User user){
-		userDao.addUser(user);
+		this.userDao.addUser(user);
 	}
 	
 	public User findUserById(Integer userId){
-		User user = userDao.findUserById(userId);
+		User user = this.userDao.findUserById(userId);
 		return user;
 	}
 	
 	public List<User> findAllUser(){
-		return userDao.findAllUser();
+		return this.userDao.findAllUser();
 	}
 }

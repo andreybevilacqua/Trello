@@ -15,22 +15,22 @@ public class CommentService {
 	CommentDao commentDao;
 	
 	public void addComment(Comment comment){
-		commentDao.addComment(comment);
+		this.commentDao.addComment(comment);
 	}
 	
 	public Comment findCommentById(Integer comment_id){
-		return commentDao.findCommentById(comment_id);
+		return this.commentDao.findCommentById(comment_id);
 	}
 	
 	public List<Comment> findAllComments(){
-		return commentDao.findAllComments();
+		return this.commentDao.findAllComments();
 	}
 	
 	public List<Comment> findAllCommentsFromCard(Integer card_id){
-		return commentDao.findAllCommentsFromCardId(card_id);
+		return this.commentDao.findAllCommentsFromCardId(card_id);
 	}
 	
 	public void deleteComment(Comment comment){
-		commentDao.deleteComment(comment);
+		this.commentDao.deleteComment(comment);
 	}
 }

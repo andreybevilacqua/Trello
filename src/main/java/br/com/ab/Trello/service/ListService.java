@@ -1,4 +1,4 @@
-package br.com.ab.Trello.service;
+ package br.com.ab.Trello.service;
 
 import java.util.ArrayList;
 
@@ -15,23 +15,25 @@ public class ListService {
 	ListDao listDao;
 	
 	public void addList(List list){
-		listDao.addList(list);
+		if(this.listDao.findByTitle(list.getTitle()).equals(null)){
+			this.listDao.addList(list);
+		}
 	}
 	
-	public List findListById(Integer list_id){
-		return listDao.findListById(list_id);
+	public List findById(Integer list_id){
+		return this.listDao.findById(list_id);
 	}
 	
 	public ArrayList<List> findAllLists(){
 		
-		return (ArrayList<List>) listDao.findAllLists();
+		return (ArrayList<List>) this.listDao.findAllLists();
 	}
 	
-	public List findListByDashboardId(Integer dashboard_id){
-		return listDao.findListByDashboardId(dashboard_id);
+	public List findByDashboardId(Integer dashboard_id){
+		return this.listDao.findListByDashboardId(dashboard_id);
 	}
 	
 	public void deleteList(List list){
-		listDao.deleteList(list);
+		this.listDao.deleteList(list);
 	}
 }

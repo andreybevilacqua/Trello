@@ -15,24 +15,22 @@ public class CardService {
 	CardDao cardDao;
 	
 	public void addCard (Card card){
-		cardDao.addCard(card);
+		this.cardDao.addCard(card);
 	}
 	
 	public Card findCardById (Integer cardId){
-		
-		return cardDao.findCardById(cardId);
+		return this.cardDao.findCardById(cardId);
 	}
 	
 	public List<Card> findAllCards(){
-		return cardDao.findAllCards();
+		return this.cardDao.findAllCards();
 	}
 	
 	public List<Card> findAllCardsFromList(Integer list_id){
-		
-		return cardDao.findAllCardsFromListId(list_id);
+		return this.cardDao.findAllCardsFromListId(list_id);
 	}
 	
 	public void deleteCard(Card card){
-		cardDao.deleteCard(card);
+		this.cardDao.deleteCard(card);
 	}
 }

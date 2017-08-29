@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import br.com.ab.Trello.model.User;
 
@@ -13,10 +14,11 @@ import br.com.ab.Trello.model.User;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class UserDao {
 
+	@PersistenceContext(unitName = "Trello")
 	private EntityManager entityManager;
 	
 	public void addUser(User user){
-		entityManager.persist(user);
+		this.entityManager.persist(user);
 	}
 	
 	public User findUserById(Integer userId){
@@ -25,6 +27,6 @@ public class UserDao {
 	}
 	
 	public List<User> findAllUser(){
-		return entityManager.createQuery("SELECT u FROM USER u", User.class).getResultList();
+		return this.entityManager.createQuery("SELECT u FROM USER u", User.class).getResultList();
 	}
 }

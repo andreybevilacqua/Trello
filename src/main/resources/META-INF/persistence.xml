@@ -7,8 +7,13 @@
 		<jta-data-source>java:jboss/datasources/trelloDS</jta-data-source>
 		
 		<class>br.com.ab.Trello.model.User</class>
+		<class>br.com.ab.Trello.model.Dashboard</class>
+		<class>br.com.ab.Trello.model.List</class>
+		<class>br.com.ab.Trello.model.Card</class>
+		<class>br.com.ab.Trello.model.Comment</class>
 
 		<properties>
+		
 			<!-- Configuracoes especificas do Hibernate -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.show_sql" value="true" />
