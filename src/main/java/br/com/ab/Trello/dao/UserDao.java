@@ -21,8 +21,17 @@ public class UserDao {
 		this.entityManager.persist(user);
 	}
 	
+	public void addUser(User user, EntityManager entityManager){
+		entityManager.persist(user);
+	}
+	
 	public User findUserById(Integer userId){
 		User user = this.entityManager.find(User.class, userId);
+		return user;
+	}
+	
+	public User findUserByLogin(String userLogin){
+		User user = this.entityManager.find(User.class, userLogin);
 		return user;
 	}
 	
