@@ -15,7 +15,17 @@ import br.com.ab.Trello.model.User;
 public class UserDao {
 
 	@PersistenceContext(unitName = "Trello")
-	private EntityManager entityManager;
+	EntityManager entityManager;
+	
+	// Mock tests.
+	public void setEntityManager(EntityManager entityManager){
+		this.entityManager = entityManager;
+	}
+	
+	// Mock tests.
+	public EntityManager getEntityManager(){
+		return this.entityManager;
+	}
 	
 	public void addUser(User user){
 		this.entityManager.persist(user);
