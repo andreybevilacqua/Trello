@@ -16,7 +16,7 @@ import br.com.ab.Trello.model.Comment;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class CommentDao {
 	
-	@PersistenceContext
+	@PersistenceContext(unitName = "Trello")
 	private EntityManager entityManager;
 	
 	public void addComment(Comment comment){

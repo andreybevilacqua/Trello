@@ -18,6 +18,14 @@ public class DashboardDao {
 	@PersistenceContext(unitName = "Trello")
 	private EntityManager entityManager;
 	
+	public void setEntityManager(EntityManager entityManager){
+		this.entityManager = entityManager;
+	}
+	
+	public EntityManager getEntityManager(){
+		return entityManager;
+	}
+	
 	public void addDashborard(Dashboard dashboard) throws ServletException {
 		entityManager.persist(dashboard);
 	}

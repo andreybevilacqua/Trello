@@ -16,7 +16,7 @@ import br.com.ab.Trello.model.Card;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class CardDao {
 	
-	@PersistenceContext
+	@PersistenceContext(unitName = "Trello")
 	private EntityManager entityManager;
 	
 	public void addCard (Card card){
