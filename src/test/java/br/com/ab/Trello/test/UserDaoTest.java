@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +16,7 @@ import br.com.ab.Trello.dao.UserDao;
 import br.com.ab.Trello.model.User;
 import junit.framework.Assert;
 
-public class UserTests {
+public class UserDaoTest {
 
 	private UserDao userDao;
 	private EntityManager entityManager;
@@ -106,15 +107,11 @@ public class UserTests {
 	public void findAllUsers() {
 
 		List<User> listOfUsers = new ArrayList<User>();
-
-		Mockito.doAnswer(new MockAllUsersAnswer()).when(entityManager).createQuery("SELECT u FROM USER u", User.class)
-				.getResultList();
-
+		
 		listOfUsers = userDao.findAllUser();
 		
-		Mockito.verify(userDao.getEntityManager()).createQuery("SELECT u FROM USER u", User.class);
-		//Mockito.verify(userDao.getEntityManager()).persist(user);
-
+		Mockito.when(entityManager.createQuery("SELECT u FROM user u", User.class).getResultList()).thenReturn(listOfUsers);
+		
 		Assert.assertEquals(3, listOfUsers.size());
 
 	}

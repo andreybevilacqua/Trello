@@ -31,13 +31,13 @@ public class ListController {
 
 	@WebResult(name = "list")
 	public List findByDashboardId(
-			@WebParam(name = "dashboard_id") @XmlElement(required = true, nillable = false) Integer dashboard_id) {
-		return this.listService.findByDashboardId(dashboard_id);
+			@WebParam(name = "dashboardId") @XmlElement(required = true, nillable = false) Integer dashboardId) {
+		return this.listService.findByDashboardId(dashboardId);
 	}
 
 	@WebResult(name = "list")
-	public List findById(@WebParam(name = "list_id") @XmlElement(required = true, nillable = false) Integer list_id) {
-		return this.listService.findById(list_id);
+	public List findById(@WebParam(name = "listId") @XmlElement(required = true, nillable = false) Integer listId) {
+		return this.listService.findById(listId);
 	}
 
 	@WebResult(name = "allLists")

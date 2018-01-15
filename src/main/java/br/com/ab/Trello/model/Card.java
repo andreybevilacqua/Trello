@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Card {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer card_id;
+	private Integer cardId;
 	private String title;
 	private String detail;
 	
@@ -27,12 +27,12 @@ public class Card {
 		this.detail = detail;
 	}
 
-	public void setId(Integer card_id){
-		this.card_id = card_id;
+	public void setId(Integer cardId){
+		this.cardId = cardId;
 	}
 	
 	public Integer getId(){
-		return card_id;
+		return cardId;
 	}
 	
 	public String getTitle() {

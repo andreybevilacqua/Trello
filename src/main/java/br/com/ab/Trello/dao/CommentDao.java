@@ -23,8 +23,8 @@ public class CommentDao {
 		this.entityManager.persist(comment);
 	}
 	
-	public Comment findCommentById(Integer comment_id){
-		Comment comment = this.entityManager.find(Comment.class, comment_id);
+	public Comment findCommentById(Integer commentId){
+		Comment comment = this.entityManager.find(Comment.class, commentId);
 		return comment;
 	}
 	
@@ -33,7 +33,7 @@ public class CommentDao {
 		return this.entityManager.createQuery("SELECT c FROM comment c").getResultList();
 	}
 	
-	public List<Comment> findAllCommentsFromCardId(Integer card_id){
+	public List<Comment> findAllCommentsFromCardId(Integer cardId){
 		
 		List<Comment> commentsFromCard = new ArrayList<Comment>();
 		
@@ -41,7 +41,7 @@ public class CommentDao {
 		
 		@SuppressWarnings("unchecked")
 		TypedQuery<Comment> typedQuery = (TypedQuery<Comment>) this.entityManager.createQuery(query);
-		typedQuery.setParameter("pCard_Id", card_id);
+		typedQuery.setParameter("pCard_Id", cardId);
 		
 		commentsFromCard = (List<Comment>)typedQuery.getResultList();
 		

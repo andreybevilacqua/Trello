@@ -22,8 +22,8 @@ public class CardController {
 
 	@WebResult(name = "cardFound")
 	public Card findCardById(
-			@WebParam(name = "card_id") @XmlElement(required = true, nillable = false) Integer card_Id) {
-		return this.cardService.findCardById(card_Id);
+			@WebParam(name = "cardId") @XmlElement(required = true, nillable = false) Integer cardId) {
+		return this.cardService.findCardById(cardId);
 	}
 
 	@WebResult(name = "listOfCards")
@@ -33,8 +33,8 @@ public class CardController {
 
 	@WebResult(name = "cardFound")
 	public List<Card> findAllCardsFromList(
-			@WebParam(name = "list_id") @XmlElement(required = true, nillable = false) Integer list_id) {
-		return this.cardService.findAllCardsFromList(list_id);
+			@WebParam(name = "listId") @XmlElement(required = true, nillable = false) Integer listId) {
+		return this.cardService.findAllCardsFromList(listId);
 	}
 
 	public void deleteCard(Card card) {

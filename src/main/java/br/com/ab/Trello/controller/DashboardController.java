@@ -29,8 +29,8 @@ public class DashboardController {
 	}
 	
 	@WebResult(name="dashboardFound")
-	public Dashboard findById(@WebParam(name="dashboard_id") @XmlElement(required=true, nillable=false) Integer dashboard_id){
-		return this.dashboardService.findById(dashboard_id);
+	public Dashboard findById(@WebParam(name="dashboardId") @XmlElement(required=true, nillable=false) Integer dashboardId){
+		return this.dashboardService.findById(dashboardId);
 	}
 
 	@WebResult(name="allDashboards")

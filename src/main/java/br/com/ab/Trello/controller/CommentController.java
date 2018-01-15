@@ -27,8 +27,8 @@ public class CommentController {
 
 	@WebResult(name = "commentFound")
 	public Comment findCommentById(
-			@WebParam(name = "comment_id") @XmlElement(required = true, nillable = false) Integer comment_id) {
-		return this.commentService.findCommentById(comment_id);
+			@WebParam(name = "commentId") @XmlElement(required = true, nillable = false) Integer commentId) {
+		return this.commentService.findCommentById(commentId);
 	}
 
 	@WebResult(name = "allComments")
@@ -38,8 +38,8 @@ public class CommentController {
 
 	@WebResult(name = "allComments")
 	public List<Comment> findAllCommentsFromCard(
-			@WebParam(name = "card_id") @XmlElement(required = true, nillable = false) Integer card_id) {
-		return this.commentService.findAllCommentsFromCard(card_id);
+			@WebParam(name = "cardId") @XmlElement(required = true, nillable = false) Integer cardId) {
+		return this.commentService.findAllCommentsFromCard(cardId);
 	}
 
 	public void deleteComment(

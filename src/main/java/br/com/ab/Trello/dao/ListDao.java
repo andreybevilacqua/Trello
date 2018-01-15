@@ -22,8 +22,8 @@ public class ListDao {
 		this.entityManager.persist(list);
 	}
 	
-	public List findById(Integer list_id){
-		List list = this.entityManager.find(List.class, list_id);
+	public List findById(Integer listId){
+		List list = this.entityManager.find(List.class, listId);
 		return list;
 	}
 	
@@ -32,11 +32,11 @@ public class ListDao {
 		return (ArrayList<List>) this.entityManager.createQuery("SELECT l FROM list l", List.class).getResultList();
 	}
 	
-	public List findListByDashboardId(Integer dashboard_id){
+	public List findListByDashboardId(Integer dashboardId){
 		String query = "SELECT l FROM list l, dashboard d WHERE l.dashboard_id = :pDashboard_id";
 		
 		TypedQuery<List> typedQuery = (TypedQuery<List>) this.entityManager.createQuery(query);
-		typedQuery.setParameter("pDashboard_id", dashboard_id);
+		typedQuery.setParameter("pDashboard_id", dashboardId);
 		
 		List list = (List) typedQuery.getSingleResult();
 		
@@ -50,5 +50,14 @@ public class ListDao {
 	public List findByTitle(String title){
 		return this.entityManager.find(List.class, title);
 	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
+	public EntityManager getEntityManager(){
+		return entityManager;
+	}
+	
 
 }

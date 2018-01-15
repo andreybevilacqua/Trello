@@ -9,9 +9,9 @@ import javax.persistence.Id;
 public class Dashboard {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer dashboard_Id;
+	private Integer dashboardId;
 	private String title;
-	private int user_Id;
+	private int userId;
 	
 	public Dashboard(){
 		
@@ -19,23 +19,36 @@ public class Dashboard {
 	
 	public Dashboard(String title, int userId){
 		setTitle(title);
-		setUser_Id(userId);
+		setUserId(userId);
+	}
+	
+	public Dashboard(int id, String title, int userId){
+		setTitle(title);
+		setUserId(userId);
 	}
 
 	public String getTitle() {
 		return title;
+	}
+	
+	public void setId(int id){
+		this.dashboardId = id;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	
-	public int getUser_Id() {
-		return user_Id;
+	public int getId(){
+		return dashboardId;
+	}
+	
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser_Id(int user_Id) {
-		this.user_Id = user_Id;
+	public void setUserId(int user_Id) {
+		this.userId = user_Id;
 	}
 	
 }

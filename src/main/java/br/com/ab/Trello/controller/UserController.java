@@ -27,7 +27,7 @@ public class UserController {
 
 	@WebResult(name = "user")
 	public User findUserById(
-			@WebParam(name = "user_id") @XmlElement(required = true, nillable = false) Integer userId) {
+			@WebParam(name = "userId") @XmlElement(required = true, nillable = false) Integer userId) {
 		return this.userService.findUserById(userId);
 	}
 	

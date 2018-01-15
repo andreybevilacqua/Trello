@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Comment {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer comment_id;
+	private Integer commentId;
 	private Date dateOfTheComment;
 	private String comment;
 
@@ -24,12 +24,12 @@ public class Comment {
 		this.comment = comment;
 	}
 	
-	public void setId(Integer comment_id){
-		this.comment_id = comment_id;
+	public void setId(Integer commentId){
+		this.commentId = commentId;
 	}
 	
 	public Integer getId(){
-		return comment_id;
+		return commentId;
 	}
 	
 	public Date getDateOfTheComment() {

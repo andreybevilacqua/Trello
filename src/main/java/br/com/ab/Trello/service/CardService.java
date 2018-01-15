@@ -26,8 +26,8 @@ public class CardService {
 		return this.cardDao.findAllCards();
 	}
 	
-	public List<Card> findAllCardsFromList(Integer list_id){
-		return this.cardDao.findAllCardsFromListId(list_id);
+	public List<Card> findAllCardsFromList(Integer listId){
+		return this.cardDao.findAllCardsFromListId(listId);
 	}
 	
 	public void deleteCard(Card card){

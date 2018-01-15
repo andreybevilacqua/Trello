@@ -23,9 +23,9 @@ public class CardDao {
 		this.entityManager.persist(card);
 	}
 	
-	public Card findCardById(Integer card_Id){
+	public Card findCardById(Integer cardId){
 		
-		Card card = this.entityManager.find(Card.class, card_Id);
+		Card card = this.entityManager.find(Card.class, cardId);
 		return card;
 	}
 	
@@ -34,7 +34,7 @@ public class CardDao {
 		return this.entityManager.createQuery("SELECT c FROM card c").getResultList();
 	}
 	
-	public List<Card> findAllCardsFromListId(Integer list_id){
+	public List<Card> findAllCardsFromListId(Integer listId){
 		
 		List<Card> cardsOfList = new ArrayList<Card>();
 		
@@ -42,7 +42,7 @@ public class CardDao {
 		
 		@SuppressWarnings("unchecked")
 		TypedQuery<Card> typedQuery = (TypedQuery<Card>) this.entityManager.createQuery(query);
-		typedQuery.setParameter("pList_Id", list_id);
+		typedQuery.setParameter("pList_Id", listId);
 		
 		cardsOfList = (List<Card>)typedQuery.getResultList();
 		

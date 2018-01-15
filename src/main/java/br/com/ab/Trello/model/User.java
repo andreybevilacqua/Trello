@@ -16,7 +16,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer user_id;
+	private Integer userId;
 	private String login;
 	private String pass;
 	
@@ -32,14 +32,14 @@ public class User implements Serializable {
 	}
 	
 	public Integer getId() {
-		return user_id;
+		return userId;
 	}
 
 	public void setLogin(String login){
 		this.login = login;
 	}
 	public void setId(Integer user_id) {
-		this.user_id = user_id;
+		this.userId = user_id;
 	}
 	
 	public String getLogin(){

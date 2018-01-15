@@ -18,16 +18,16 @@ public class CommentService {
 		this.commentDao.addComment(comment);
 	}
 	
-	public Comment findCommentById(Integer comment_id){
-		return this.commentDao.findCommentById(comment_id);
+	public Comment findCommentById(Integer commentId){
+		return this.commentDao.findCommentById(commentId);
 	}
 	
 	public List<Comment> findAllComments(){
 		return this.commentDao.findAllComments();
 	}
 	
-	public List<Comment> findAllCommentsFromCard(Integer card_id){
-		return this.commentDao.findAllCommentsFromCardId(card_id);
+	public List<Comment> findAllCommentsFromCard(Integer cardId){
+		return this.commentDao.findAllCommentsFromCardId(cardId);
 	}
 	
 	public void deleteComment(Comment comment){

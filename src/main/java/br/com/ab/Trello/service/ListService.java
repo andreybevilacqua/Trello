@@ -20,8 +20,8 @@ public class ListService {
 		}
 	}
 	
-	public List findById(Integer list_id){
-		return this.listDao.findById(list_id);
+	public List findById(Integer listId){
+		return this.listDao.findById(listId);
 	}
 	
 	public ArrayList<List> findAllLists(){
@@ -29,8 +29,8 @@ public class ListService {
 		return (ArrayList<List>) this.listDao.findAllLists();
 	}
 	
-	public List findByDashboardId(Integer dashboard_id){
-		return this.listDao.findListByDashboardId(dashboard_id);
+	public List findByDashboardId(Integer dashboardId){
+		return this.listDao.findListByDashboardId(dashboardId);
 	}
 	
 	public void deleteList(List list){

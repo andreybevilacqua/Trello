@@ -9,23 +9,31 @@ import javax.persistence.Id;
 public class List {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer list_id;
+	private int listId;
 	private String title;
 
 	public List(){
-		
+	}
+	
+	public List(String title){
+		this.listId = listId;
+		this.title = title;
+	}
+	
+	public void setTitle(String title){
+		this.title = title;
 	}
 	
 	public Integer getId(){
-		return list_id;
+		return listId;
 	}
 	
 	public String getTitle(){
 		return title;
 	}
 	
-	public void setId(Integer list_id){
-		this.list_id = list_id;
+	public void setId(Integer listId){
+		this.listId = listId;
 	}
 	
 }
