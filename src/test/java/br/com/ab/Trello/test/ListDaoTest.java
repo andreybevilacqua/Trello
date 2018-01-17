@@ -54,6 +54,37 @@ public class ListDaoTest {
 		Assert.assertSame(testList.getId(), list.getId());
 	}
 	
+	@Test
+	public void findListByTitleSuccessfullyTest(){
+		List list = new List("First List");
+		list.setId(1);
+		
+		Mockito.when(entityManager.find(List.class, "First List")).thenReturn(list);
+		
+		List testList = listDao.findByTitle("First List");
+		
+		Assert.assertSame(testList.getTitle(), list.getTitle());
+	}
+	
+	@Test
+	public void deleteListByListObjSuccessfullyTest(){
+		List list = new List("First List");
+		list.setId(1);
+		
+		Mockito.when(entityManager.find(List.class, 1)).thenReturn(list);
+		
+		List testList = listDao.findById(1);
+		
+		if(testList != null){
+			// Now we should create the mock answer for the delete method.
+			//entityManager.remove(testList);
+		}
+		
+		// Temporary...
+		Assert.assertTrue(true);
+		
+	}
+	
 	private class MockListAnswer implements Answer<Void> {
 		private final Integer listId;
 		private final String title;

@@ -13,17 +13,45 @@ public class UserService {
 
 	@Inject
 	UserDao userDao;
-	
-	public void addUser(User user){
-		this.userDao.addUser(user);
+
+	public User addUser(User user) {
+		try{
+			this.userDao.addUser(user);
+			return user;
+		} catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
-	
-	public User findUserById(Integer userId){
+
+	public User findUserById(Integer userId) {
 		User user = this.userDao.findUserById(userId);
 		return user;
 	}
-	
-	public List<User> findAllUser(){
+
+	public List<User> findAllUser() {
 		return this.userDao.findAllUser();
 	}
+
+	public boolean validateUser(User user) {
+		boolean result = false;
+		if (!user.equals(null)){
+			if(!user.getLogin().equals(null) && !user.getPassword().equals(null)) {
+				if (!user.getLogin().equals("") && !user.getPassword().equals("") && !user.getLogin().equals("?")){
+					result = true;
+				}
+			}
+		}
+		return result;
+	}
+	
+	public boolean validateUserId(Integer userId){
+		boolean result = false;
+		if(userId != null && userId >= 0){
+			result = true;
+		}
+		return result;
+	}
+
 }

@@ -36,7 +36,7 @@ public class DashboardDao {
 	}
 
 	public List<Dashboard> findAllDashboard() {
-		return entityManager.createQuery("SELECT * FROM dashboard d", Dashboard.class).getResultList();
+		return entityManager.createQuery("SELECT d FROM Dashboard d", Dashboard.class).getResultList();
 
 	}
 

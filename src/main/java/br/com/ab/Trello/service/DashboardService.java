@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 
 import br.com.ab.Trello.dao.DashboardDao;
 import br.com.ab.Trello.model.Dashboard;
@@ -15,20 +14,51 @@ public class DashboardService {
 	@Inject
 	DashboardDao dashboardDao;
 	
-	public void addDashboard(Dashboard dashboard){
+	public Dashboard addDashboard(Dashboard dashboard){
 		try {
 			this.dashboardDao.addDashborard(dashboard);
-		} catch (ServletException e) {
+			return dashboard;
+		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 	
-	public Dashboard findById(Integer dashboardId){
-		return this.dashboardDao.findById(dashboardId);
+	public Dashboard findDashboardById(Integer dashboardId){
+		try{
+			return this.dashboardDao.findById(dashboardId);
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public List<Dashboard> findAllDashboard(){
-		return this.dashboardDao.findAllDashboard();
-		
+		try{
+			return this.dashboardDao.findAllDashboard();
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public boolean validateDashboard(Dashboard dashboard) {
+		boolean result = false;
+		if (!dashboard.equals(null)){
+			if(!dashboard.getTitle().equals(null) && !(dashboard.getUserId() < 0)) {
+				if (!dashboard.getTitle().equals("") && !dashboard.getTitle().equals("?")){
+					result = true;
+				}
+			}
+		}
+		return result;
+	}
+
+	public boolean validateDashboardId(Integer dashboardId) {
+		boolean result = false;
+		if(dashboardId != null && dashboardId >= 0){
+			result = true;
+		}
+		return result;
 	}
 }

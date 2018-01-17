@@ -7,6 +7,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import br.com.ab.Trello.model.User;
 
@@ -41,7 +42,9 @@ public class UserDao {
 		return user;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<User> findAllUser(){
-		return this.entityManager.createQuery("SELECT u FROM USER u", User.class).getResultList();
+		// Here is the name of the class! Not table! So its User.
+		return entityManager.createQuery("SELECT u FROM User u").getResultList();
 	}
 }

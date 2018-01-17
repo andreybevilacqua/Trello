@@ -4,11 +4,15 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
 
+import br.com.ab.Trello.error.ErrorMessage;
+import br.com.ab.Trello.error.WSObjectFault;
+import br.com.ab.Trello.exception.WSObjectException;
 import br.com.ab.Trello.model.Dashboard;
 import br.com.ab.Trello.service.DashboardService;
 
@@ -18,24 +22,35 @@ public class DashboardController {
 
 	@Inject
 	private DashboardService dashboardService;
-	
-	public void addDashboard(@WebParam(name="dashboard_name") @XmlElement(required=true, nillable=false) 
-	String dashboardName, @WebParam(name="userId") int userId){
-		
-		if(!dashboardName.equals("") && userId > 0){
-			Dashboard dashboard = new Dashboard(dashboardName, userId);
-			this.dashboardService.addDashboard(dashboard);
+
+	@WebMethod(operationName = "addDashboard")
+	@WebResult(name = "Dashboard")
+	public Dashboard addDashboard(
+			@WebParam(name = "New_Dashboard") @XmlElement(required = true, nillable = false) Dashboard dashboard)
+			throws WSObjectException {
+		if (dashboardService.validateDashboard(dashboard)) {
+			return dashboardService.addDashboard(dashboard);
+		} else {
+			throw new WSObjectException(new WSObjectFault(ErrorMessage.EMPTY_NULL_PARAMETERS));
 		}
 	}
-	
-	@WebResult(name="dashboardFound")
-	public Dashboard findById(@WebParam(name="dashboardId") @XmlElement(required=true, nillable=false) Integer dashboardId){
-		return this.dashboardService.findById(dashboardId);
+
+	@WebMethod(operationName = "findById")
+	@WebResult(name = "dashboardFound")
+	public Dashboard findById(
+			@WebParam(name = "dashboardId") @XmlElement(required = true, nillable = false) Integer dashboardId)
+			throws WSObjectException {
+		if (dashboardService.validateDashboardId(dashboardId)) {
+			return this.dashboardService.findDashboardById(dashboardId);
+		} else {
+			throw new WSObjectException(new WSObjectFault(ErrorMessage.ID_NULL_MINOR_ZERO));
+		}
 	}
 
-	@WebResult(name="allDashboards")
-	public List<Dashboard> getAll(){
+	@WebMethod(operationName="findAllDashboard")
+	@WebResult(name="ListOfDashboards")
+	public List<Dashboard> findAllDashboard() {
 		return this.dashboardService.findAllDashboard();
 	}
-	
+
 }
