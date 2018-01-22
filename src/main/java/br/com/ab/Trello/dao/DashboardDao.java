@@ -26,8 +26,12 @@ public class DashboardDao {
 		return entityManager;
 	}
 	
-	public void addDashborard(Dashboard dashboard) throws ServletException {
-		entityManager.persist(dashboard);
+	public void addDashborard(Dashboard dashboard) throws Exception {
+		try{
+			entityManager.persist(dashboard);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
 	}
 
 	public Dashboard findById(Integer dashboardId) {
