@@ -1,39 +1,47 @@
- package br.com.ab.Trello.service;
+ package br.com.ab.Trello.ws;
 
 import java.util.ArrayList;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+import javax.xml.bind.annotation.XmlElement;
 
 import br.com.ab.Trello.dao.ListDao;
 import br.com.ab.Trello.model.List;
 
+@WebService
 @Stateless
-public class ListService {
+public class ListSoapWS {
 
 	@Inject
 	ListDao listDao;
 	
-	public void addList(List list){
-		if(this.listDao.findByTitle(list.getTitle()).equals(null)){
+	public void addList(@WebParam(name = "list") List list) {
+		if (!list.equals(null)) {
 			this.listDao.addList(list);
 		}
 	}
-	
-	public List findById(Integer listId){
-		return this.listDao.findById(listId);
-	}
-	
-	public ArrayList<List> findAllLists(){
-		
-		return (ArrayList<List>) this.listDao.findAllLists();
-	}
-	
-	public List findByDashboardId(Integer dashboardId){
+
+	@WebResult(name = "list")
+	public List findByDashboardId(
+			@WebParam(name = "dashboardId") @XmlElement(required = true, nillable = false) Integer dashboardId) {
 		return this.listDao.findListByDashboardId(dashboardId);
 	}
-	
-	public void deleteList(List list){
+
+	@WebResult(name = "list")
+	public List findById(@WebParam(name = "listId") @XmlElement(required = true, nillable = false) Integer listId) {
+		return this.listDao.findById(listId);
+	}
+
+	@WebResult(name = "allLists")
+	public ArrayList<List> getAll() {
+		return this.listDao.findAllLists();
+	}
+
+	public void delete(@WebParam(name = "list") @XmlElement(required = true, nillable = false) List list) {
 		this.listDao.deleteList(list);
 	}
 }

@@ -1,36 +1,42 @@
-package br.com.ab.Trello.service;
+package br.com.ab.Trello.ws;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+import javax.xml.bind.annotation.XmlElement;
 
 import br.com.ab.Trello.dao.CardDao;
 import br.com.ab.Trello.model.Card;
 
+@WebService
 @Stateless
-public class CardService {
+public class CardSoapWS {
 
 	@Inject
 	CardDao cardDao;
 	
-	public void addCard (Card card){
-		this.cardDao.addCard(card);
-	}
-	
-	public Card findCardById (Integer cardId){
+	@WebResult(name = "cardFound")
+	public Card findCardById(
+			@WebParam(name = "cardId") @XmlElement(required = true, nillable = false) Integer cardId) {
 		return this.cardDao.findCardById(cardId);
 	}
-	
-	public List<Card> findAllCards(){
+
+	@WebResult(name = "listOfCards")
+	public List<Card> findAllCards() {
 		return this.cardDao.findAllCards();
 	}
-	
-	public List<Card> findAllCardsFromList(Integer listId){
+
+	@WebResult(name = "cardFound")
+	public List<Card> findAllCardsFromList(
+			@WebParam(name = "listId") @XmlElement(required = true, nillable = false) Integer listId) {
 		return this.cardDao.findAllCardsFromListId(listId);
 	}
-	
-	public void deleteCard(Card card){
+
+	public void deleteCard(Card card) {
 		this.cardDao.deleteCard(card);
 	}
 }

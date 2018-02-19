@@ -33,15 +33,15 @@ public class WSObjectException extends Exception {
 		this.fault = fault;
 	}
 	
-	public WSObjectFault getWSObjectFault(){
-		return fault;
-	}
-	
 	public WSObjectException(String code, String message) {
 		super(message);
 		this.fault = new WSObjectFault();
 	    this.fault.setFaultString(message);
 	    this.fault.setFaultCode(code);
+	}
+	
+	public WSObjectFault getWSObjectFault(){
+		return fault;
 	}
 	
 }

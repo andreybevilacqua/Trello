@@ -28,12 +28,12 @@ public class DashboardDaoTest {
 	
 	@SuppressWarnings("deprecation")
 	@Test
-	public void addDashboardSucessfullyTest() throws ServletException{
+	public void addDashboardSucessfullyTest() throws Exception{
 		
 		Mockito.doAnswer(new MockDashboardAnswer(1, "Test Dashboard", 1)).when(entityManager).persist(Mockito.any(Dashboard.class));
 		
 		Dashboard dashboard = new Dashboard(1, "Test Dash", 1);
-		dashboardDao.addDashborard(dashboard);
+		dashboardDao.addDashboard(dashboard);
 		
 		Mockito.verify(dashboardDao.getEntityManager()).persist(dashboard);
 		
