@@ -23,7 +23,7 @@ public class DashboardServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		URIDiscover uri = new URIDiscover();
-		executeRoute(uri.discoverURI(req.getRequestURI()), req, resp);
+		executeURI(uri.discoverURI(req.getRequestURI()), req, resp);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class DashboardServlet extends HttpServlet {
 		doGet(req, resp);
 	}
 	
-	public void executeRoute(String uri, HttpServletRequest req, HttpServletResponse resp) {
+	public void executeURI(String uri, HttpServletRequest req, HttpServletResponse resp) {
 		RequestDispatcher dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD.toString());
 
 		if (uri.equals(URI.DASHBOARD_URI.toString())) {
