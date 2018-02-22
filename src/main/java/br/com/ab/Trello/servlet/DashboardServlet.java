@@ -31,20 +31,14 @@ public class DashboardServlet extends HttpServlet {
 		doGet(req, resp);
 	}
 	
-	public void executeRoute(String routeName, HttpServletRequest req, HttpServletResponse resp) {
+	public void executeRoute(String uri, HttpServletRequest req, HttpServletResponse resp) {
 		RequestDispatcher dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD.toString());
 
-		if (routeName.equals(URI.DASHBOARD_URI.toString())) {
+		if (uri.equals(URI.DASHBOARD_URI.toString())) {
 			dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD.toString());
 			
-		} else if (routeName.equals(URI.DASHBOARD_CREATE_URI.toString())) {
-			if (emptyParameters(req)) {
-				dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD_CREATE.toString());
-			} else {
-				int userId = parseUserId(req.getParameter("userId"));
-				dashboardController.createDashboard(req.getParameter("dashboardName"), userId);
-				
-			}
+		} else if (uri.equals(URI.DASHBOARD_CREATE_URI.toString())) {
+			dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD_CREATE.toString());
 		}
 
 		try {
@@ -58,11 +52,11 @@ public class DashboardServlet extends HttpServlet {
 		return Integer.parseInt(userId);
 	}
 
-	private boolean emptyParameters(HttpServletRequest req) {
+	/*private boolean emptyParameters(HttpServletRequest req) {
 		if (req.getParameter("dashboardName").isEmpty() || req.getParameter("userId").isEmpty()) {
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 }
