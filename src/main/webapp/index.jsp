@@ -5,6 +5,5 @@
 	<h1>
 		Bem vindo ao meu Trello!<br />
 	</h1>
-	<c:redirect url="/views/dashboard.jsp" />
 </body>
 </html>

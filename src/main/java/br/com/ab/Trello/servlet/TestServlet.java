@@ -12,12 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
+import br.com.ab.Trello.model.Dashboard;
 import br.com.ab.Trello.model.User;
 
 @WebServlet("/TestServlet")
 public class TestServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	/*
+	 * http://www.codejava.net/java-ee/servlet/webservlet-annotation-examples
+	 * https://www.programcreek.com/java-api-examples/index.php?class=javax.servlet.http.HttpServletRequest&method=getRequestURI
+	 * https://www.programcreek.com/java-api-examples/index.php?class=javax.servlet.http.HttpServletRequest&method=getContextPath
+	 * http://www.java2s.com/Tutorial/Java/0380__JSTL/GetDatevaluefromForm.htm
+	 * https://www.ntu.edu.sg/home/ehchua/programming/java/JavaServerPages.html
+	 * https://www.journaldev.com/2090/jstl-tutorial-jstl-tags-example
+	 * 
+	 * 
+	 */
 
 	@PersistenceContext
 	private EntityManager entityManager;

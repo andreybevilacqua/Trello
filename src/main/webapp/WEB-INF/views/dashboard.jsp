@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -8,21 +7,20 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Dashboard</title>
+<c:url value="/dashboard" var="contextPath" />
 
-<style>
-table, th, td { border: 1px solid black;}
-</style>
+<title>Dashboard</title>
 
 </head>
 
 <body>
 
-	<h1>
-		Dashboard<br />
-	</h1>
+	<div class="container">
+		<h1>
+			Your Dashboard<br />
+		</h1>
+		
+	</div>
 
-	<form action="TestServlet">
-		<input type="submit" value="send" />
 </body>
 </html>
