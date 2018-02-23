@@ -5,7 +5,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<c:url value="/dashboard" var="contextPath" />
+<c:url value="/Trello/dashboard" var="contextPath" />
 
 <title>Dashboard</title>
 
@@ -18,7 +18,7 @@
 			Your Dashboard<br />
 		</h1>
 		
-		<form action="/Trello/dashboard/create" method="POST">
+		<form action="${contextPath}/create" method="POST">
 			<button type="submit">Create Dashboard</button>
 		</form>
 		

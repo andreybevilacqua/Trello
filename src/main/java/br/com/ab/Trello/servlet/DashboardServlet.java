@@ -22,23 +22,31 @@ public class DashboardServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		URIDiscover uri = new URIDiscover();
-		executeURI(uri.discoverURI(req.getRequestURI()), req, resp);
+		executeURI(PathDiscover.discoverURI(req.getRequestURI()), req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
-	
+
 	public void executeURI(String uri, HttpServletRequest req, HttpServletResponse resp) {
 		RequestDispatcher dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD.toString());
 
+		switch (uri) {
+		case URI.DASHBOARD_URI.toString():
+			dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD.toString());
+		case URI.DASHBOARD_CREATE_URI.toString():
+			dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD_CREATE.toString());
+		default:
+			dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD.toString());
+		}
+		
 		if (uri.equals(URI.DASHBOARD_URI.toString())) {
 			dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD.toString());
-			
+
 		} else if (uri.equals(URI.DASHBOARD_CREATE_URI.toString())) {
-			dispatcher = req.getRequestDispatcher(JSPPath.DASHBOARD_CREATE.toString());
+
 		}
 
 		try {
@@ -51,12 +59,5 @@ public class DashboardServlet extends HttpServlet {
 	private int parseUserId(String userId) throws NumberFormatException {
 		return Integer.parseInt(userId);
 	}
-
-	/*private boolean emptyParameters(HttpServletRequest req) {
-		if (req.getParameter("dashboardName").isEmpty() || req.getParameter("userId").isEmpty()) {
-			return true;
-		}
-		return false;
-	}*/
 
 }
