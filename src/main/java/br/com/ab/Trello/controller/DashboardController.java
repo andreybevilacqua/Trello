@@ -1,5 +1,7 @@
 package br.com.ab.Trello.controller;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -17,19 +19,22 @@ public class DashboardController {
 		
 	}
 	
-	public void createDashboard(String dashboardName, int userId) {
+	public Dashboard createDashboard(String dashboardName, int userId) {
+		return new Dashboard(dashboardName, userId);
+	}
+	
+	public void addDashboard(Dashboard dashboard) throws WSObjectException, Exception {
 		try{
-			addDashboard(new Dashboard(dashboardName, userId));
+			dashboardDao.addDashboard(dashboard);
 		} catch (WSObjectException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
-	public void addDashboard(Dashboard dashboard) throws WSObjectException, Exception {
-		dashboardDao.addDashboard(dashboard);
+	public List<Dashboard> findAllDashboards() {
+		return dashboardDao.findAllDashboards();
 	}
 	
 }

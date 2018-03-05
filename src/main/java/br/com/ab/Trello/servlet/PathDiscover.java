@@ -5,32 +5,33 @@ import java.util.Map;
 
 public final class PathDiscover {
 
-	static final Map<String, String> uriMap = new HashMap<String, String>();
-	static final Map<String, String> jspMap = new HashMap<String, String>();
+	static final Map<String, String[]> maps = new HashMap<>();
 	
-	public PathDiscover() {
-		uriMap.put("CONTEXT", "/Trello");
-		uriMap.put("DASHBOARD", "/dashboard");
-		uriMap.put("DASHBOARD_CREATE", "/dashboard/create");
+	static {
+		maps.put("CONTEXT", new String[] { "/Trello", "index.jsp" });
 		
-		jspMap.put("CONTEXT", "index.jsp");
-		jspMap.put("DASHBOARD", "/WEB-INF/views/dashboard.jsp");
-		jspMap.put("DASHBOARD_CREATE", "/WEB-INF/views/createDashboard.jsp");
+		// DASHBOARD
+		maps.put("DASHBOARD", new String[] { "/Trello/dashboard", "/WEB-INF/views/dashboard/dashboard.jsp" });
+		maps.put("DASHBOARD_CREATE", new String[] { "/Trello/dashboard/create", "/WEB-INF/views/dashboard/createDashboard.jsp" });
+		
+		// LIST
+		maps.put("LIST", new String[] {"/Trello/list", "/WEB-INF/views/list/list.jsp"});
+		maps.put("LIST_CREATE", new String[] {"/Trello/list/create", "/WEB-INF/views/list/createList.jsp"});
 	}
 	
 	public static String getUri(String key) {
-		return uriMap.get(key);
+		return maps.get(key)[0];
 	}
 	
 	public static String getJsp(String key) {
-		return jspMap.get(key);
+		return maps.get(key)[1];
 	}
 	
 	public static String discoverURI(String uri) {
-		return removeURIEndBar(uri);
+		return removeContextURI(uri);
 	}
 	
-	private static String removeURIEndBar(String uri) {
+	private static String removeContextURI(String uri) {
 		if(uri.endsWith("/")) {
 			uri = uri.substring(0, (uri.length() -1));
 		}

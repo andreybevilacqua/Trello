@@ -7,7 +7,6 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.ServletException;
 
 import br.com.ab.Trello.model.Dashboard;
 
@@ -35,8 +34,10 @@ public class DashboardDao {
 		return dashboard;
 	}
 
-	public List<Dashboard> findAllDashboard() {
-		return entityManager.createQuery("SELECT d FROM Dashboard d", Dashboard.class).getResultList();
+	public List<Dashboard> findAllDashboards() {
+		return entityManager.createQuery("SELECT d FROM Dashboard d WHERE d.userId = :user_id", Dashboard.class)
+							.setParameter("user_id", 1)
+							.getResultList();
 
 	}
 

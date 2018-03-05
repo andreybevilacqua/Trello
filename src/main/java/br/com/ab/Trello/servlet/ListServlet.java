@@ -10,50 +10,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.ab.Trello.controller.DashboardController;
+import br.com.ab.Trello.controller.ListController;
 import br.com.ab.Trello.exception.WSObjectException;
-import br.com.ab.Trello.model.Dashboard;
+import br.com.ab.Trello.model.List;
 
-@WebServlet(name = "DashboardServlet", urlPatterns = { "/dashboard", "/dashboard/*" })
-public class DashboardServlet extends HttpServlet {
+@WebServlet(name="ListServlet", urlPatterns = {"/list", "/list/*"})
+public class ListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Inject
-	DashboardController dashboardController;
-
+	ListController listController;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		executeURI(PathDiscover.discoverURI(req.getRequestURI()), req, resp);
+		executeURI(PathDiscover.getUri(req.getRequestURI()), req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
-
+	
 	private void executeURI(String uri, HttpServletRequest req, HttpServletResponse resp) {
 		RequestDispatcher dispatcher;
 		
 		try {
-			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
-
-			if (uri.equals(PathDiscover.getUri("DASHBOARD"))) {
-				req.setAttribute("dashboards", dashboardController.findAllDashboards());
-				dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
+			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST"));
+			
+			if(uri.equals(PathDiscover.getUri("LIST"))) {
+				req.setAttribute("lists", listController.findListByDashboardId(1));
+				dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST"));
 				
-			} else if (uri.equals(PathDiscover.getUri("DASHBOARD_CREATE"))) {
-				if(req.getParameter("dashboardName") != null) {
+			} else if (uri.equals(PathDiscover.getUri("LIST_CREATE"))) {
+				if(req.getParameter("listName") != null) {
 					try {
-						addDashboard(req.getParameter("dashboardName"), Integer.parseInt(req.getParameter("userId")));
+						addList(req.getParameter("listName"), Integer.parseInt(req.getParameter("dashboardId")));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					resp.sendRedirect(PathDiscover.getUri("DASHBOARD")); // Redirect to dashboards page.
+					resp.sendRedirect(PathDiscover.getUri("LIST")); // Redirect to dashboards page.
 				} else {
-					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD_CREATE"));
+					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 				}
-				
 			}
 			
 			dispatcher.forward(req, resp);
@@ -70,11 +69,12 @@ public class DashboardServlet extends HttpServlet {
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	private void addDashboard(String dashboardName, int userId) throws WSObjectException, Exception {
-		Dashboard d = dashboardController.createDashboard(dashboardName, userId);
-		dashboardController.addDashboard(d);
+		
 	}
 
+	private void addList(String listName, int dashboardId) throws WSObjectException, Exception {
+		List l = listController.createList(listName, dashboardId);
+		listController.addList(l);
+	}
+	
 }

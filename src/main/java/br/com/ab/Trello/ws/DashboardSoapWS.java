@@ -50,7 +50,7 @@ public class DashboardSoapWS {
 	@WebMethod(operationName = "findAllDashboard")
 	@WebResult(name = "ListOfDashboards")
 	public List<Dashboard> findAllDashboard() {
-		return this.dashboardDao.findAllDashboard();
+		return this.dashboardDao.findAllDashboards();
 	}
 
 	public boolean validateDashboard(Dashboard dashboard) {

@@ -26,7 +26,7 @@ public class ListSoapWS {
 	}
 
 	@WebResult(name = "list")
-	public List findByDashboardId(
+	public ArrayList<List> findByDashboardId(
 			@WebParam(name = "dashboardId") @XmlElement(required = true, nillable = false) Integer dashboardId) {
 		return this.listDao.findListByDashboardId(dashboardId);
 	}

@@ -5,7 +5,8 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<c:url value="/Trello/dashboard" var="contextPath" />
+<c:url value="/dashboard" var="contextPath" />
+<c:url value="/dashboard/create" var="createDashboardContextPath" />
 
 <title>Dashboard</title>
 
@@ -15,10 +16,16 @@
 
 	<div class="container">
 		<h1>
-			Your Dashboard<br />
+			Your Dashboards<br />
 		</h1>
 		
-		<form action="${contextPath}/create" method="POST">
+		<ul>
+			<c:forEach var="dashboard" items="${dashboards }">
+				<li>${dashboard.getTitle() } </li>
+			</c:forEach>
+		</ul>
+		
+		<form action="${createDashboardContextPath}" method="POST">
 			<button type="submit">Create Dashboard</button>
 		</form>
 		

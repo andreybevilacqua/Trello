@@ -32,15 +32,11 @@ public class ListDao {
 		return (ArrayList<List>) this.entityManager.createQuery("SELECT l FROM list l", List.class).getResultList();
 	}
 	
-	public List findListByDashboardId(Integer dashboardId){
-		String query = "SELECT l FROM list l, dashboard d WHERE l.dashboard_id = :pDashboard_id";
-		
-		TypedQuery<List> typedQuery = (TypedQuery<List>) this.entityManager.createQuery(query);
-		typedQuery.setParameter("pDashboard_id", dashboardId);
-		
-		List list = (List) typedQuery.getSingleResult();
-		
-		return list;
+	@SuppressWarnings("unchecked")
+	public ArrayList<List> findListByDashboardId(Integer dashboardId){
+		return (ArrayList<List>)entityManager.createQuery("SELECT l FROM List l, Dashboard d WHERE l.dashboard_id = :dashboardId")
+					 .setParameter("dashboardId", dashboardId)
+					 .getResultList();
 	}
 	
 	public void deleteList(List list){

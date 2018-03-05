@@ -31,7 +31,7 @@ public class ListDaoTest {
 	public void addListSuccessfullyTest(){
 		Mockito.doAnswer(new MockListAnswer(1, "List 1")).when(entityManager).persist(Mockito.any(List.class));
 		
-		List list = new List("list 1");
+		List list = new List("list 1", 1);
 		list.setId(1);
 		
 		listDao.addList(list);
@@ -44,7 +44,7 @@ public class ListDaoTest {
 	
 	@Test
 	public void findListByIdSuccessfullyTest(){
-		List list = new List("List 1");
+		List list = new List("List 1", 1);
 		list.setId(1);
 		
 		Mockito.when(entityManager.find(List.class, 1)).thenReturn(list);
@@ -56,7 +56,7 @@ public class ListDaoTest {
 	
 	@Test
 	public void findListByTitleSuccessfullyTest(){
-		List list = new List("First List");
+		List list = new List("First List", 1);
 		list.setId(1);
 		
 		Mockito.when(entityManager.find(List.class, "First List")).thenReturn(list);
@@ -68,7 +68,7 @@ public class ListDaoTest {
 	
 	@Test
 	public void deleteListByListObjSuccessfullyTest(){
-		List list = new List("First List");
+		List list = new List("First List", 1);
 		list.setId(1);
 		
 		Mockito.when(entityManager.find(List.class, 1)).thenReturn(list);

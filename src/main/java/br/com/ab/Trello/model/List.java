@@ -11,12 +11,14 @@ public class List {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int listId;
 	private String title;
-
+	
+	private int dashboardId;
+	
 	public List(){
 	}
 	
-	public List(String title){
-		this.listId = listId;
+	public List(String title, Integer dashboardId){
+		this.dashboardId = dashboardId;
 		this.title = title;
 	}
 	
@@ -34,6 +36,10 @@ public class List {
 	
 	public void setId(Integer listId){
 		this.listId = listId;
+	}
+
+	public int getDashboardId() {
+		return dashboardId;
 	}
 	
 }
