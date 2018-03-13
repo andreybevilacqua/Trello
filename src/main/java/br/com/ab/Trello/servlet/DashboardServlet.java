@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.ab.Trello.controller.DashboardController;
+import br.com.ab.Trello.controller.ListController;
 import br.com.ab.Trello.exception.WSObjectException;
 import br.com.ab.Trello.model.Dashboard;
 
@@ -21,6 +22,9 @@ public class DashboardServlet extends HttpServlet {
 
 	@Inject
 	DashboardController dashboardController;
+	
+	@Inject
+	ListController listController;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,6 +44,7 @@ public class DashboardServlet extends HttpServlet {
 
 			if (uri.equals(PathDiscover.getUri("DASHBOARD"))) {
 				req.setAttribute("dashboards", dashboardController.findAllDashboards());
+				req.setAttribute("totalListsPerDashboard", totalListsPerDashboard(1));
 				dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
 				
 			} else if (uri.equals(PathDiscover.getUri("DASHBOARD_CREATE"))) {
@@ -75,6 +80,10 @@ public class DashboardServlet extends HttpServlet {
 	private void addDashboard(String dashboardName, int userId) throws WSObjectException, Exception {
 		Dashboard d = dashboardController.createDashboard(dashboardName, userId);
 		dashboardController.addDashboard(d);
+	}
+	
+	private int totalListsPerDashboard(Integer dashboardId) {
+		return listController.totalListsPerDashboard(dashboardId);
 	}
 
 }

@@ -38,7 +38,6 @@ public class DashboardDao {
 		return entityManager.createQuery("SELECT d FROM Dashboard d WHERE d.userId = :user_id", Dashboard.class)
 							.setParameter("user_id", 1)
 							.getResultList();
-
 	}
 
 }

@@ -1,5 +1,6 @@
 package br.com.ab.Trello.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,9 +10,10 @@ import javax.persistence.Id;
 public class List {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="list_id")
 	private int listId;
 	private String title;
-	
+	@Column(name="dashboard_id")
 	private int dashboardId;
 	
 	public List(){

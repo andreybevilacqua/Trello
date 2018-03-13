@@ -24,7 +24,7 @@ public class ListServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		executeURI(PathDiscover.getUri(req.getRequestURI()), req, resp);
+		executeURI(PathDiscover.discoverURI(req.getRequestURI()), req, resp);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class ListServlet extends HttpServlet {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					resp.sendRedirect(PathDiscover.getUri("LIST")); // Redirect to dashboards page.
+					resp.sendRedirect(PathDiscover.getUri("LIST")); // Redirect to lists page.
 				} else {
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 				}

@@ -4,34 +4,34 @@
 <html>
 <head>
 
-<title>List</title>
+<title>Dashboard</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:url value="/" var="contextPath" />
-<c:url value="/list/create" var="createListContextPath" />
+<c:url value="/dashboard/create" var="createDashboardContextPath" />
 
 <link rel="stylesheet" href="${contextPath}resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="${contextPath}resources/css/bootstrap-theme.min.css">
 
 </head>
-
+<!-- https://getbootstrap.com/docs/4.0/examples/album/ -->
 <body>
 
 	<div class="container">
 		<h1>
-			Your Lists<br />
+			Your Dashboards<br />
 		</h1>
-
+		
 		<ul class="list-group">
-			<c:forEach var="list" items="${lists }">
-				<a href="#" class="list-group-item list-group-item-action">${list.getTitle() }</a>
+			<c:forEach var="dashboard" items="${dashboards }">
+				<a href="#" class="list-group-item list-group-item-action">${dashboard.getTitle() } </a>
 			</c:forEach>
 		</ul>
-
-		<form action="${createListContextPath}" method="POST">
-			<button type="submit" class="btn btn-primary">Create List</button>
+		
+		<form action="${createDashboardContextPath}" method="POST">
+			<button type="submit" class="btn btn-primary">Create Dashboard</button>
 		</form>
-
+		
 	</div>
 
 </body>

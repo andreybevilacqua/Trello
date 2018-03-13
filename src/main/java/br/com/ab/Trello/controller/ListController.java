@@ -31,7 +31,15 @@ public class ListController {
 		}
 	}
 	
+	public ArrayList<List> findAllLists(){
+		return listDao.findAllLists();
+	}
+	
 	public ArrayList<List> findListByDashboardId(Integer dashboardId){
 		return listDao.findListByDashboardId(dashboardId);
+	}
+	
+	public int totalListsPerDashboard(Integer dashboardId) {
+		return listDao.totalListsPerDashboard(dashboardId);
 	}
 }

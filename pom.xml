@@ -87,6 +87,7 @@
 				<version>3.0.0</version>
 				<configuration>
 					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -97,7 +98,6 @@
 					<source>1.8</source>
 					<target>1.8</target>
 					<webxml>\src\main\webapp\WEB-INF\web.xml</webxml>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
             <plugin>

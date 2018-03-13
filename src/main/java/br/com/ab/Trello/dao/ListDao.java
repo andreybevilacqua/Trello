@@ -29,12 +29,12 @@ public class ListDao {
 	
 	public ArrayList<List> findAllLists(){
 		
-		return (ArrayList<List>) this.entityManager.createQuery("SELECT l FROM list l", List.class).getResultList();
+		return (ArrayList<List>) this.entityManager.createQuery("SELECT l FROM List l", List.class).getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<List> findListByDashboardId(Integer dashboardId){
-		return (ArrayList<List>)entityManager.createQuery("SELECT l FROM List l, Dashboard d WHERE l.dashboard_id = :dashboardId")
+		return (ArrayList<List>)entityManager.createQuery("SELECT l FROM List l WHERE l.dashboardId = :dashboardId ")
 					 .setParameter("dashboardId", dashboardId)
 					 .getResultList();
 	}
@@ -45,6 +45,10 @@ public class ListDao {
 	
 	public List findByTitle(String title){
 		return this.entityManager.find(List.class, title);
+	}
+	
+	public int totalListsPerDashboard(Integer dashboardId) {
+		return entityManager.createQuery("SELECT COUNT(1) FROM List l WHERE l.dashboardId = :dashboardId").getFirstResult();
 	}
 
 	public void setEntityManager(EntityManager entityManager) {
