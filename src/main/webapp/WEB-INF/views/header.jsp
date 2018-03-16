@@ -4,14 +4,32 @@
 
 <c:url value="/" var="contextPath" />
 
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Andrey Bevilacqua</h5>
-      <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="#">Home</a>
-      </nav>
-      <a class="btn btn-outline-primary" href="#">Login</a>
-      <a class="btn btn-outline-primary" href="#">Logout</a>
-</div>
+<!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+      
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <p class="navbar-brand"> My Own Trello</p>
+        </div>
+        
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About the project</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Login</a></li>
+            <li><a href="../navbar-static-top/">Logout</a></li>
+          </ul>
+        </div><!-- https://getbootstrap.com/docs/3.3/examples/navbar-fixed-top/ -->
+      </div>
+    </nav>
 
 
 

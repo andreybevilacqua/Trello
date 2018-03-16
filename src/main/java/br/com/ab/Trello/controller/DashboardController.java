@@ -34,6 +34,10 @@ public class DashboardController {
 		}
 	}
 	
+	public Dashboard findById(Integer dashboardId) {
+		return dashboardDao.findById(dashboardId);
+	}
+	
 	public List<Dashboard> findAllDashboards() {
 		return dashboardDao.findAllDashboards();
 	}

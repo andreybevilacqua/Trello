@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
@@ -7,7 +6,7 @@
 <c:url value="/" var="contextPath" />
 <c:url value="/dashboard/create" var="createDashboardContextPath" />
 <c:url value="/dashboard/delete" var="deleteDashboardContextPath" />
-<c:url value="/list" var="listContextPath" />
+<c:url value="/dashboard/detail" var="detailDashboardContextPath" />
 
 <tags:pageTemplate pageTitle="Dashboard">
 
@@ -32,8 +31,8 @@
                   <div class="d-flex justify-content-between align-items-center">
 
                     <div class="btn-group">                      	
-                      	<a href="${listContextPath}"
-                      	   class="view" >View</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                      	<a href="${detailDashboardContextPath}/${dashboard.getId()}"
+                      	   class="view">View</a>&nbsp;&nbsp;&nbsp;&nbsp;
                       
                       	<a href="${deleteDashboardContextPath}/${dashboard.getId()}"
                       	   class="delete"

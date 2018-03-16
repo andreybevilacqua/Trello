@@ -2,7 +2,6 @@ package br.com.ab.Trello.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -71,7 +70,7 @@ public class DashboardServlet extends HttpServlet {
 		
 		if (uri.equals(PathDiscover.getUri("DASHBOARD"))) {
 			setListPerDashboard();
-			setRequestParamenters(req);
+			req.setAttribute("dashboards", dashboards);
 			
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
 			
@@ -94,7 +93,13 @@ public class DashboardServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			resp.sendRedirect(PathDiscover.getUri("DASHBOARD")); // Redirect to dashboards page.
+		
+		} else if (uri.matches(PathDiscover.getUri("DASHBOARD_DETAIL"))) {
+			req.setAttribute("dashboard", dashboardController.findById(PathDiscover.findObjectId(uri)));
+			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD_DETAIL"));
 		}
+		
+		
 		return dispatcher;
 	}
 
@@ -123,10 +128,6 @@ public class DashboardServlet extends HttpServlet {
 			}
 		}
 		
-	}
-	
-	private void setRequestParamenters(HttpServletRequest req) {
-		req.setAttribute("dashboards", dashboards);
 	}
 
 }

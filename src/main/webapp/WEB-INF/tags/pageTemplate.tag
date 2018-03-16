@@ -15,18 +15,17 @@
 	
 	<title>${pageTitle }</title>
 	
-	<link rel="stylesheet" href="${contextPath}resources/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="${contextPath}resources/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${contextPath}resources/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="${contextPath}resources/css/header.css"> 
 	
 </head>
 
 <body>
 
-	<%@ include file="WEB-INF/views/header.jsp" %>
+	<%@ include file="/WEB-INF/views/header.jsp" %>
 	
 	<jsp:doBody />
-	
-	<%@ include file="/WEB-INF/views/footer.jsp" %>
 
 </body>
 </html>
