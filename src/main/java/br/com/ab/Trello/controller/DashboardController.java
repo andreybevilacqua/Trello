@@ -1,5 +1,6 @@
 package br.com.ab.Trello.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -35,6 +36,10 @@ public class DashboardController {
 	
 	public List<Dashboard> findAllDashboards() {
 		return dashboardDao.findAllDashboards();
+	}
+	
+	public void deleteDashboard(int dashboardId) throws Exception {
+		dashboardDao.deleteDashboard(dashboardId);
 	}
 	
 }

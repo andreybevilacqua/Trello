@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -26,6 +27,9 @@ public class Dashboard {
 	@Column(name="user_id")
 	private int userId;
 	
+	@Transient
+	private int numberOfLists;
+	
 	public Dashboard(){
 		
 	}
@@ -33,6 +37,7 @@ public class Dashboard {
 	public Dashboard(String title, int userId){
 		setTitle(title);
 		setUserId(userId);
+		numberOfLists = 0;
 	}
 	
 	public Dashboard(int id, String title, int userId){
@@ -62,6 +67,14 @@ public class Dashboard {
 
 	public void setUserId(int user_Id) {
 		this.userId = user_Id;
+	}
+
+	public int getNumberOfLists() {
+		return numberOfLists;
+	}
+	
+	public void addList() {
+		numberOfLists = numberOfLists + 1;
 	}
 	
 }

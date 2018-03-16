@@ -1,6 +1,8 @@
 package br.com.ab.Trello.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -14,11 +16,15 @@ import br.com.ab.Trello.controller.DashboardController;
 import br.com.ab.Trello.controller.ListController;
 import br.com.ab.Trello.exception.WSObjectException;
 import br.com.ab.Trello.model.Dashboard;
+import br.com.ab.Trello.model.List;
 
 @WebServlet(name = "DashboardServlet", urlPatterns = { "/dashboard", "/dashboard/*" })
 public class DashboardServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	private ArrayList<List> totalListPerDashboards;
+	private ArrayList<Dashboard> dashboards;
 
 	@Inject
 	DashboardController dashboardController;
@@ -41,25 +47,8 @@ public class DashboardServlet extends HttpServlet {
 		
 		try {
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
-
-			if (uri.equals(PathDiscover.getUri("DASHBOARD"))) {
-				req.setAttribute("dashboards", dashboardController.findAllDashboards());
-				req.setAttribute("totalListsPerDashboard", totalListsPerDashboard(1));
-				dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
-				
-			} else if (uri.equals(PathDiscover.getUri("DASHBOARD_CREATE"))) {
-				if(req.getParameter("dashboardName") != null) {
-					try {
-						addDashboard(req.getParameter("dashboardName"), Integer.parseInt(req.getParameter("userId")));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					resp.sendRedirect(PathDiscover.getUri("DASHBOARD")); // Redirect to dashboards page.
-				} else {
-					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD_CREATE"));
-				}
-				
-			}
+			
+			dispatcher = discoverWhatToDo(uri, req, resp, dispatcher);
 			
 			dispatcher.forward(req, resp);
 			
@@ -76,14 +65,68 @@ public class DashboardServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
+	private RequestDispatcher discoverWhatToDo(String uri, HttpServletRequest req, HttpServletResponse resp,
+			RequestDispatcher dispatcher) throws IOException {
+		
+		if (uri.equals(PathDiscover.getUri("DASHBOARD"))) {
+			setListPerDashboard();
+			setRequestParamenters(req);
+			
+			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
+			
+		} else if (uri.equals(PathDiscover.getUri("DASHBOARD_CREATE"))) {
+			if(req.getParameter("dashboardName") != null) {
+				try {
+					addDashboard(req.getParameter("dashboardName"), Integer.parseInt(req.getParameter("userId")));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				resp.sendRedirect(PathDiscover.getUri("DASHBOARD")); // Redirect to dashboards page.
+			} else {
+				dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD_CREATE"));
+			}
+			
+		} else if (uri.matches((PathDiscover.getUri("DASHBOARD_DELETE")))) {
+			try {
+				deleteDashboard(PathDiscover.findObjectId(uri));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			resp.sendRedirect(PathDiscover.getUri("DASHBOARD")); // Redirect to dashboards page.
+		}
+		return dispatcher;
+	}
+
 	private void addDashboard(String dashboardName, int userId) throws WSObjectException, Exception {
 		Dashboard d = dashboardController.createDashboard(dashboardName, userId);
 		dashboardController.addDashboard(d);
 	}
 	
-	private int totalListsPerDashboard(Integer dashboardId) {
-		return listController.totalListsPerDashboard(dashboardId);
+	private void deleteDashboard(int dashboardId) throws Exception {
+		dashboardController.deleteDashboard(dashboardId);
+	}
+	
+	private ArrayList<List> totalListsPerDashboard() {
+		return listController.totalListsPerDashboard();
+	}
+	
+	private void setListPerDashboard() {
+		totalListPerDashboards = totalListsPerDashboard();
+		dashboards = (ArrayList<Dashboard>) dashboardController.findAllDashboards();
+		
+		for (int i = 0; i < dashboards.size(); i++) {
+			for(int j = 0; j < totalListPerDashboards.size(); j++) {
+				if(totalListPerDashboards.get(j).getDashboardId() == dashboards.get(i).getId()) {
+					dashboards.get(i).addList();
+				}
+			}
+		}
+		
+	}
+	
+	private void setRequestParamenters(HttpServletRequest req) {
+		req.setAttribute("dashboards", dashboards);
 	}
 
 }

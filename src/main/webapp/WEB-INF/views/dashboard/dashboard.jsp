@@ -1,23 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-  <head>
-  
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags" %>
 
-    <title>Album example for Bootstrap</title>
+<c:url value="/" var="contextPath" />
+<c:url value="/dashboard/create" var="createDashboardContextPath" />
+<c:url value="/dashboard/delete" var="deleteDashboardContextPath" />
+<c:url value="/list" var="listContextPath" />
 
-	<c:url value="/" var="contextPath" />
-	<link rel="stylesheet" href="${contextPath}resources/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="${contextPath}resources/css/bootstrap-theme.min.css">
+<tags:pageTemplate pageTitle="Dashboard">
 
-  </head>
-
-  <body>
-      
       <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       	<h1 class="display-4">Dashboards</h1>
       	<p class="lead">All your dashboards with a count of total lists per dashboard</p>
@@ -35,11 +28,18 @@
                 <img class="card-img-top" src="${contextPath}resources/images/default-image.png" height=60 width="130">
                 <div class="card-body">
                   <p class="card-text">${dashboard.getTitle() }</p>
+                  <small class="text-muted">Lists: ${dashboard.getNumberOfLists() }</small>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+
+                    <div class="btn-group">                      	
+                      	<a href="${listContextPath}"
+                      	   class="view" >View</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                      
+                      	<a href="${deleteDashboardContextPath}/${dashboard.getId()}"
+                      	   class="delete"
+                      	   onclick="return confirm('Are you sure you want to Delete?');">Delete</a>
                     </div>
-                    <small class="text-muted">Lists: ${totalListsPerDashboard }</small>
+                    
                   </div>
                   <br>
                   <br>
@@ -50,8 +50,12 @@
           
           </div> <!-- div  rows -->
           
+          <form action="${createDashboardContextPath}" method="POST">
+          	<button type="submit" class="btn btn-primary my-2">Create dashboard</button>
+          </form>
+          
         </div>
       </div>
-      
-  </body>
-</html>
+
+</tags:pageTemplate>
+

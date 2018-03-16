@@ -55,11 +55,6 @@ public class DashboardDaoTest {
 		Assert.assertEquals(dashboard.getUserId(), testDashboard.getUserId());
 	}
 	
-	@Test
-	public void findAllDashboardTest(){
-		
-	}
-	
 	private class MockDashboardAnswer implements Answer<Void>{
 
 		private int dashboardId;

@@ -38,8 +38,8 @@ public class ListController {
 	public ArrayList<List> findListByDashboardId(Integer dashboardId){
 		return listDao.findListByDashboardId(dashboardId);
 	}
-	
-	public int totalListsPerDashboard(Integer dashboardId) {
-		return listDao.totalListsPerDashboard(dashboardId);
+
+	public ArrayList<List> totalListsPerDashboard() {
+		return listDao.totalListsPerDashboard();
 	}
 }
