@@ -14,7 +14,7 @@ import br.com.ab.Trello.model.ApplicationUser;
 public class DashboardController {
 	
 	@Inject
-	DashboardDao dashboardDao;
+	private DashboardDao dashboardDao;
 	
 	public DashboardController() { }
 	
@@ -22,11 +22,9 @@ public class DashboardController {
 		return new Dashboard(dashboardName, applicationUser);
 	}
 	
-	public void addDashboard(Dashboard dashboard) throws WSObjectException, Exception {
+	public void addDashboard(Dashboard dashboard) {
 		try{
 			dashboardDao.addDashboard(dashboard);
-		} catch (WSObjectException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

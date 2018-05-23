@@ -13,7 +13,8 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import junit.framework.Assert;
+//import junit.framework.Assert;
+import org.junit.Assert;
 
 public class ApplicationApplicationUserDaoTest {
 
@@ -55,7 +56,7 @@ public class ApplicationApplicationUserDaoTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void findUserByIdSucessfullyTest() throws InstantiationException, IllegalAccessException {
+	public void findUserByIdSucessfullyTest() {
 
 		ApplicationUser applicationUser = new ApplicationUser("Andrey", "Test");
 		applicationUser.setId(1);
@@ -86,7 +87,6 @@ public class ApplicationApplicationUserDaoTest {
 		Mockito.verify(entityManager).find(ApplicationUser.class, id);
 
 		Assert.assertNull(applicationUserTest);
-		Assert.assertSame(applicationUserTest, null);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -106,7 +106,7 @@ public class ApplicationApplicationUserDaoTest {
 	public void findAllUsers() {
 
 		List<ApplicationUser> listOfApplicationUsers = new ArrayList<ApplicationUser>();
-		
+
 		//listOfApplicationUsers = applicationUserDao.findAllUser();
 		
 		//Mockito.when(entityManager.createQuery("SELECT u FROM user u", ApplicationUser.class).getResultList()).thenReturn(listOfApplicationUsers);
@@ -133,7 +133,7 @@ public class ApplicationApplicationUserDaoTest {
 		}
 
 		@Override
-		public Void answer(InvocationOnMock invocation) throws Throwable {
+		public Void answer(InvocationOnMock invocation) {
 
 			List<ApplicationUser> listOfApplicationUserInvocation = invocation.getArgument(0);
 			listOfApplicationUserInvocation.addAll(listOfApplicationUsers);
@@ -155,8 +155,8 @@ public class ApplicationApplicationUserDaoTest {
 		}
 
 		@Override
-		public Void answer(InvocationOnMock invocation) throws Throwable {
-			ApplicationUser applicationUser = (ApplicationUser) invocation.getArgument(0);
+		public Void answer(InvocationOnMock invocation) {
+			ApplicationUser applicationUser = invocation.getArgument(0);
 			applicationUser.setId(id);
 			applicationUser.setLogin(login);
 			applicationUser.setPassword(pass);

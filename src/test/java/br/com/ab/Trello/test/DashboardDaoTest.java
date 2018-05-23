@@ -11,7 +11,7 @@ import org.mockito.stubbing.Answer;
 
 import br.com.ab.Trello.dao.DashboardDao;
 import br.com.ab.Trello.model.Dashboard;
-import junit.framework.Assert;
+import org.junit.Assert;
 
 public class DashboardDaoTest {
 
@@ -68,11 +68,10 @@ public class DashboardDaoTest {
 		}
 		
 		@Override
-		public Void answer(InvocationOnMock invocation) throws Throwable {
-			Dashboard dashboard = (Dashboard) invocation.getArgument(0);
+		public Void answer(InvocationOnMock invocation) {
+			Dashboard dashboard = invocation.getArgument(0);
 			dashboard.setId(dashboardId);
 			dashboard.setTitle(dashboardName);
-			//dashboard.setUserId(userId);
 			return null;
 		}
 		

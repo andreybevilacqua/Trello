@@ -1,6 +1,5 @@
 package br.com.ab.Trello.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -27,13 +26,17 @@ public class DashboardDao {
 		return entityManager;
 	}
 	
-	public void addDashboard(Dashboard dashboard) throws Exception {
-			entityManager.persist(dashboard);
+	public void addDashboard(Dashboard dashboard) {
+			try{
+				entityManager.persist(dashboard);
+			} catch (Exception e){
+				e.printStackTrace();
+				throw e;
+			}
 	}
 
 	public Dashboard findById(Integer dashboardId) {
-		Dashboard dashboard = this.entityManager.find(Dashboard.class, dashboardId);
-		return dashboard;
+		return this.entityManager.find(Dashboard.class, dashboardId);
 	}
 
 	public List<Dashboard> findAllDashboardsFromAUser(Integer userId){
@@ -41,12 +44,10 @@ public class DashboardDao {
 									("SELECT d FROM Dashboard d WHERE applicationuser_userid = :user_id", Dashboard.class)
 									.setParameter("user_id", userId);
 
-		List<Dashboard> dashboardList = query.getResultList();
-
-		return dashboardList;
+		return (List<Dashboard>) query.getResultList();
 	}
 	
-	public void deleteDashboard(int dashboardId) throws Exception {
+	public void deleteDashboard(int dashboardId) {
 		entityManager.createQuery("DELETE FROM Dashboard d WHERE d.dashboardId = :dashboardId")
 					.setParameter("dashboardId", dashboardId)
 					.executeUpdate();
