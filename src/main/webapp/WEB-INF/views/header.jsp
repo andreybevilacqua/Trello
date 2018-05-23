@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <c:url value="/" var="contextPath" />
+<c:url value="/dashboard" var="dashboardContextPath" />
+
+<link rel="stylesheet" href="${contextPath}resources/css/header.css"> 
 
 <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -20,7 +23,7 @@
         
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="${dashboardContextPath}">Home</a></li>
             <li><a href="#about">About the project</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">

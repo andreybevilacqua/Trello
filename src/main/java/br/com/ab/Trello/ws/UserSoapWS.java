@@ -10,25 +10,25 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
 
-import br.com.ab.Trello.dao.UserDao;
+import br.com.ab.Trello.dao.ApplicationUserDao;
 import br.com.ab.Trello.error.ErrorMessage;
 import br.com.ab.Trello.error.WSObjectFault;
 import br.com.ab.Trello.exception.WSObjectException;
-import br.com.ab.Trello.model.User;
+import br.com.ab.Trello.model.ApplicationUser;
 
 @WebService
 @Stateless
 public class UserSoapWS {
 
 	@Inject
-	UserDao userDao;
+    ApplicationUserDao applicationUserDao;
 
 	@WebMethod(operationName = "addUser")
-	@WebResult(name = "User")
-	public boolean addUser(@WebParam(name = "New_User") @XmlElement(required = true, nillable = false) User user)
+	@WebResult(name = "ApplicationUser")
+	public boolean addUser(@WebParam(name = "New_User") @XmlElement(required = true, nillable = false) ApplicationUser applicationUser)
 			throws WSObjectException {
-		if (validateUser(user)) {
-			userDao.addUser(user);
+		if (validateUser(applicationUser)) {
+			applicationUserDao.addUser(applicationUser);
 			return true;
 		} else {
 			throw new WSObjectException(new WSObjectFault(ErrorMessage.EMPTY_NULL_PARAMETERS));
@@ -37,10 +37,10 @@ public class UserSoapWS {
 
 	@WebMethod(operationName = "findUserById")
 	@WebResult(name = "user")
-	public User findUserById(@WebParam(name = "userId") @XmlElement(required = true, nillable = false) Integer userId)
+	public ApplicationUser findUserById(@WebParam(name = "userId") @XmlElement(required = true, nillable = false) Integer userId)
 			throws WSObjectException {
 		if(validateUserId(userId)){
-			return this.userDao.findUserById(userId);
+			return this.applicationUserDao.findUserById(userId);
 		} else{
 			throw new WSObjectException(new WSObjectFault(ErrorMessage.ID_NULL_MINOR_ZERO));
 		}
@@ -49,15 +49,15 @@ public class UserSoapWS {
 
 	@WebMethod(operationName="findAllUsers")
 	@WebResult(name="listOfUsers")
-	public List<User> findAllUser() {
-		return this.userDao.findAllUser();
+	public List<ApplicationUser> findAllUser() {
+		return this.applicationUserDao.findAllUser();
 	}
 
-	public boolean validateUser(User user) {
+	public boolean validateUser(ApplicationUser applicationUser) {
 		boolean result = false;
-		if (!user.equals(null)){
-			if(!user.getLogin().equals(null) && !user.getPassword().equals(null)) {
-				if (!user.getLogin().equals("") && !user.getPassword().equals("") && !user.getLogin().equals("?")){
+		if (!applicationUser.equals(null)){
+			if(!applicationUser.getLogin().equals(null) && !applicationUser.getPassword().equals(null)) {
+				if (!applicationUser.getLogin().equals("") && !applicationUser.getPassword().equals("") && !applicationUser.getLogin().equals("?")){
 					result = true;
 				}
 			}

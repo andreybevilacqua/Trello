@@ -35,7 +35,7 @@ public class DashboardSoapWS {
 		}
 	}
 
-	@WebMethod(operationName = "findById")
+	@WebMethod(operationName = "findDashboardByDashboardId")
 	@WebResult(name = "dashboardFound")
 	public Dashboard findById(
 			@WebParam(name = "dashboardId") @XmlElement(required = true, nillable = false) Integer dashboardId)
@@ -50,18 +50,18 @@ public class DashboardSoapWS {
 	@WebMethod(operationName = "findAllDashboard")
 	@WebResult(name = "ListOfDashboards")
 	public List<Dashboard> findAllDashboard() {
-		return this.dashboardDao.findAllDashboards();
+		return this.dashboardDao.findAllDashboardsFromAUser(1);
 	}
 
 	public boolean validateDashboard(Dashboard dashboard) {
 		boolean result = false;
-		if (!dashboard.equals(null)) {
+		/*if (!dashboard.equals(null)) {
 			if (!dashboard.getTitle().equals(null) && !(dashboard.getUserId() < 0)) {
 				if (!dashboard.getTitle().equals("") && !dashboard.getTitle().equals("?")) {
 					result = true;
 				}
 			}
-		}
+		}*/
 		return result;
 	}
 

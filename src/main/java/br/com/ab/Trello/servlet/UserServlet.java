@@ -15,13 +15,13 @@ public class UserServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Caiu aqui User");
+		System.out.println("Caiu aqui ApplicationUser");
 		super.doGet(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Caiu aqui User");
+		System.out.println("Caiu aqui ApplicationUser");
 		super.doPost(req, resp);
 	}
 }

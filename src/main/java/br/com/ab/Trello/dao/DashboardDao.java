@@ -8,6 +8,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import br.com.ab.Trello.model.Dashboard;
 
@@ -35,10 +36,14 @@ public class DashboardDao {
 		return dashboard;
 	}
 
-	public List<Dashboard> findAllDashboards() {
-		return entityManager.createQuery("SELECT d FROM Dashboard d WHERE d.userId = :user_id", Dashboard.class)
-							.setParameter("user_id", 1)
-							.getResultList();
+	public List<Dashboard> findAllDashboardsFromAUser(Integer userId){
+		Query query = entityManager.createQuery
+									("SELECT d FROM Dashboard d WHERE applicationuser_userid = :user_id", Dashboard.class)
+									.setParameter("user_id", userId);
+
+		List<Dashboard> dashboardList = query.getResultList();
+
+		return dashboardList;
 	}
 	
 	public void deleteDashboard(int dashboardId) throws Exception {

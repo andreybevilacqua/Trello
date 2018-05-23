@@ -2,6 +2,7 @@ package br.com.ab.Trello.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -11,29 +12,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.ab.Trello.controller.ApplicationUserController;
+import br.com.ab.Trello.controller.CardController;
 import br.com.ab.Trello.controller.DashboardController;
-import br.com.ab.Trello.controller.ListController;
+import br.com.ab.Trello.controller.ListAreaController;
 import br.com.ab.Trello.exception.WSObjectException;
+import br.com.ab.Trello.model.ApplicationUser;
 import br.com.ab.Trello.model.Dashboard;
-import br.com.ab.Trello.model.List;
 
 @WebServlet(name = "DashboardServlet", urlPatterns = { "/dashboard", "/dashboard/*" })
 public class DashboardServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
-	private ArrayList<List> totalListPerDashboards;
+
 	private ArrayList<Dashboard> dashboards;
+
+	@Inject
+	ApplicationUserController applicationUserController;
 
 	@Inject
 	DashboardController dashboardController;
 	
 	@Inject
-	ListController listController;
+	ListAreaController listAreaController;
+	
+	@Inject
+	CardController cardController;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		executeURI(PathDiscover.discoverURI(req.getRequestURI()), req, resp);
+		//executeURI(PathDiscover.discoverURI(req.getRequestURI()), req, resp);
+		executeURI(req.getRequestURI(), req, resp);
 	}
 
 	@Override
@@ -43,11 +52,11 @@ public class DashboardServlet extends HttpServlet {
 
 	private void executeURI(String uri, HttpServletRequest req, HttpServletResponse resp) {
 		RequestDispatcher dispatcher;
-		
+
 		try {
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
 			
-			dispatcher = discoverWhatToDo(uri, req, resp, dispatcher);
+			dispatcher = discoverWhichURIShouldForwad(uri, req, resp, dispatcher);
 			
 			dispatcher.forward(req, resp);
 			
@@ -65,11 +74,11 @@ public class DashboardServlet extends HttpServlet {
 		}
 	}
 
-	private RequestDispatcher discoverWhatToDo(String uri, HttpServletRequest req, HttpServletResponse resp,
-			RequestDispatcher dispatcher) throws IOException {
+	private RequestDispatcher discoverWhichURIShouldForwad(String uri, HttpServletRequest req, HttpServletResponse resp,
+														   RequestDispatcher dispatcher) throws IOException {
 		
 		if (uri.equals(PathDiscover.getUri("DASHBOARD"))) {
-			setListPerDashboard();
+			dashboards = (ArrayList<Dashboard>) findAllDashboardsFromAUser(getLoggedUser().getId());
 			req.setAttribute("dashboards", dashboards);
 			
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
@@ -77,7 +86,7 @@ public class DashboardServlet extends HttpServlet {
 		} else if (uri.equals(PathDiscover.getUri("DASHBOARD_CREATE"))) {
 			if(req.getParameter("dashboardName") != null) {
 				try {
-					addDashboard(req.getParameter("dashboardName"), Integer.parseInt(req.getParameter("userId")));
+					addNewDashboard(req.getParameter("dashboardName"), getLoggedUser());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -95,39 +104,30 @@ public class DashboardServlet extends HttpServlet {
 			resp.sendRedirect(PathDiscover.getUri("DASHBOARD")); // Redirect to dashboards page.
 		
 		} else if (uri.matches(PathDiscover.getUri("DASHBOARD_DETAIL"))) {
-			req.setAttribute("dashboard", dashboardController.findById(PathDiscover.findObjectId(uri)));
+			Dashboard d = dashboardController.findDashboardByDashboardId(PathDiscover.findObjectId(uri));
+			req.setAttribute("dashboard", d);
+			req.setAttribute("dashboardId", d.getId()); //
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD_DETAIL"));
 		}
-		
-		
+
 		return dispatcher;
 	}
 
-	private void addDashboard(String dashboardName, int userId) throws WSObjectException, Exception {
-		Dashboard d = dashboardController.createDashboard(dashboardName, userId);
+	private ApplicationUser getLoggedUser() {
+		return applicationUserController.findUserById(1);
+	}
+
+	private void addNewDashboard(String dashboardName, ApplicationUser user) throws WSObjectException, Exception {
+		Dashboard d = dashboardController.createDashboard(dashboardName, user);
 		dashboardController.addDashboard(d);
 	}
 	
 	private void deleteDashboard(int dashboardId) throws Exception {
 		dashboardController.deleteDashboard(dashboardId);
 	}
-	
-	private ArrayList<List> totalListsPerDashboard() {
-		return listController.totalListsPerDashboard();
-	}
-	
-	private void setListPerDashboard() {
-		totalListPerDashboards = totalListsPerDashboard();
-		dashboards = (ArrayList<Dashboard>) dashboardController.findAllDashboards();
-		
-		for (int i = 0; i < dashboards.size(); i++) {
-			for(int j = 0; j < totalListPerDashboards.size(); j++) {
-				if(totalListPerDashboards.get(j).getDashboardId() == dashboards.get(i).getId()) {
-					dashboards.get(i).addList();
-				}
-			}
-		}
-		
+
+	private List<Dashboard> findAllDashboardsFromAUser(Integer userId){
+		return dashboardController.findAllDashboardsFromAnUserId(userId);
 	}
 
 }

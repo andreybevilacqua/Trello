@@ -1,41 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<html>
-<head>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
-<title>Create List</title>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:url value="/" var="contextPath" />
-<c:url value="/list/create" var="listPath" />
+<c:url value="/list" var="listContextPath" />
+<c:url value="/list/create" var="createListContextPath" />
+<c:url value="/dashboard/detail" var="detailDashboardContextPath" />
 
-<link rel="stylesheet" href="${contextPath}resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="${contextPath}resources/css/bootstrap-theme.min.css">
 
-</head>
-<body>
+<tags:pageTemplate pageTitle="Create List" bodyClass="bg-light">
 
 	<div class="container">
 	
 		<h1>New List</h1>
 	
-		<form action="${listPath} " method="POST">
+		<form action="${createListContextPath}/${dashboardId} " method="POST">
 		
 			<div class="form-group">
 				<label>List name:</label>
 				<input type="text" name="listName" class="form-control"/>
 			</div>
-			<div class="form-group">
-				<label>Dashboard Id:</label>
-				<input type="number" name="dashboardId" min="1" max="999" class="form-control"/>
-			</div>
 			
 			<button type="submit" class="btn btn-primary" value="Create">Create</button>
-		
+			<br>
+			<br>
+		</form>
+
+		<form action="${detailDashboardContextPath}/${dashboardId}" method="POST">
+			<button type="submit" class="btn btn-primary" value="Cancel">Cancel</button>
 		</form>
 
 	</div>
-	
-</body>
-</html>
+
+</tags:pageTemplate>
+

@@ -1,6 +1,5 @@
 package br.com.ab.Trello.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,7 +7,6 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 import br.com.ab.Trello.model.Card;
 
@@ -24,29 +22,20 @@ public class CardDao {
 	}
 	
 	public Card findCardById(Integer cardId){
-		
-		Card card = this.entityManager.find(Card.class, cardId);
-		return card;
+		return this.entityManager.find(Card.class, cardId);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Card> findAllCards(){
-		return this.entityManager.createQuery("SELECT c FROM card c").getResultList();
+		return this.entityManager.createQuery("SELECT c FROM Card c").getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Card> findAllCardsFromListId(Integer listId){
+		return (List<Card>)entityManager.createQuery("SELECT C FROM Card c WHERE c.listId = :listId")
+									    .setParameter("listId", listId)
+									    .getResultList();
 		
-		List<Card> cardsOfList = new ArrayList<Card>();
-		
-		String query = "SELECT FROM card c, list l WHERE c.list_id = l.list_id AND l.list_id = :pList_Id";
-		
-		@SuppressWarnings("unchecked")
-		TypedQuery<Card> typedQuery = (TypedQuery<Card>) this.entityManager.createQuery(query);
-		typedQuery.setParameter("pList_Id", listId);
-		
-		cardsOfList = (List<Card>)typedQuery.getResultList();
-		
-		return cardsOfList;
 	}
 	
 	public void deleteCard(Card card){

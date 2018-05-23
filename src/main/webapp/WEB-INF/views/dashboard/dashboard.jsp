@@ -12,7 +12,7 @@
 
       <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       	<h1 class="display-4">Dashboards</h1>
-      	<p class="lead">All your dashboards with a count of total lists per dashboard</p>
+      	<p class="lead">All your dashboards with a count of total listAreas per dashboard</p>
       	<br>
    	 </div>
 
@@ -31,11 +31,9 @@
                   <div class="d-flex justify-content-between align-items-center">
 
                     <div class="btn-group">                      	
-                      	<a href="${detailDashboardContextPath}/${dashboard.getId()}"
-                      	   class="view">View</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                      	<a href="${detailDashboardContextPath}/${dashboard.getId()}" class="view">View</a>&nbsp;&nbsp;&nbsp;&nbsp;
                       
-                      	<a href="${deleteDashboardContextPath}/${dashboard.getId()}"
-                      	   class="delete"
+                      	<a href="${deleteDashboardContextPath}/${dashboard.getId()}" class="delete"
                       	   onclick="return confirm('Are you sure you want to Delete?');">Delete</a>
                     </div>
                     
@@ -54,6 +52,7 @@
           </form>
           
         </div>
+
       </div>
 
 </tags:pageTemplate>

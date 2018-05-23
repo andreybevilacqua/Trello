@@ -6,7 +6,6 @@ import java.util.Map;
 public final class PathDiscover {
 
 	static final Map<String, String[]> maps = new HashMap<>();
-	//static final String idPattern;
 	
 	static {
 		
@@ -19,31 +18,36 @@ public final class PathDiscover {
 		maps.put("DASHBOARD_DETAIL", new String[] { "/Trello/dashboard/detail/\\d+", "/WEB-INF/views/dashboard/dashboardDetail.jsp"});
 		
 		// LIST
-		maps.put("LIST", new String[] {"/Trello/list", "/WEB-INF/views/list/list.jsp"});
-		maps.put("LIST_CREATE", new String[] {"/Trello/list/create", "/WEB-INF/views/list/createList.jsp"});
+		maps.put("LIST_CREATE", new String[] {"/Trello/list/create/\\d+", "/WEB-INF/views/list/createList.jsp"});
+        maps.put("LIST_EDIT", new String[] {"/Trello/list/edit/\\d+/\\d+", "/WEB-INF/views/list/editList.jsp"});
+        maps.put("LIST_DELETE", new String[] {"/Trello/list/delete/\\d+/\\d+", ""});
 	}
 	
-	public static String getUri(String key) {
-		return maps.get(key)[0];
-	}
+	public static String getUri(String key) { return maps.get(key)[0]; }
 	
-	public static String getJsp(String key) {
-		return maps.get(key)[1];
-	}
+	public static String getJsp(String key) { return maps.get(key)[1]; }
 	
 	public static int findObjectId(String uri) {
 		int objectId = Integer.parseInt(uri.replaceAll("[^-?0-9]+", ""));
 		return objectId;
 	}
-	
-	public static String discoverURI(String uri) {
-		return removeContextURI(uri);
+
+	public static String removeDashboardIdRegexFromURI(String uri){
+		return uri = uri.replace(uri.substring((uri.length() -3), uri.length()), "");
 	}
+
+    public static String removeListAreaIdRegexFromURI(String uri){
+        return uri = uri.replace(uri.substring((uri.length() -4), uri.length()), "");
+    }
+
+	/*public static String discoverURI(String uri) {
+		return removeContextURI(uri);
+	}*/
 	
-	private static String removeContextURI(String uri) {
+	/*private static String removeContextURI(String uri) {
 		if(uri.endsWith("/")) {
 			uri = uri.substring(0, (uri.length() -1));
 		}
 		return uri;
-	}
+	}*/
 }

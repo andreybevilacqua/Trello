@@ -7,7 +7,7 @@
 <c:url value="/dashboard" var="dashboardPath" />
 <c:url value="/dashboard/create" var="dashboardCreatePath" />
 
-<tags:pageTemplate pageTitle="Create Dashboard">
+<tags:pageTemplate pageTitle="Create Dashboard" bodyClass="bg-light">
 
 	<div class="container">
 		

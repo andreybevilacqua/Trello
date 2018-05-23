@@ -1,6 +1,5 @@
 package br.com.ab.Trello.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,6 +8,7 @@ import javax.inject.Inject;
 import br.com.ab.Trello.dao.DashboardDao;
 import br.com.ab.Trello.exception.WSObjectException;
 import br.com.ab.Trello.model.Dashboard;
+import br.com.ab.Trello.model.ApplicationUser;
 
 @Stateless
 public class DashboardController {
@@ -16,12 +16,10 @@ public class DashboardController {
 	@Inject
 	DashboardDao dashboardDao;
 	
-	public DashboardController() {
-		
-	}
+	public DashboardController() { }
 	
-	public Dashboard createDashboard(String dashboardName, int userId) {
-		return new Dashboard(dashboardName, userId);
+	public Dashboard createDashboard(String dashboardName, ApplicationUser applicationUser) {
+		return new Dashboard(dashboardName, applicationUser);
 	}
 	
 	public void addDashboard(Dashboard dashboard) throws WSObjectException, Exception {
@@ -34,12 +32,12 @@ public class DashboardController {
 		}
 	}
 	
-	public Dashboard findById(Integer dashboardId) {
+	public Dashboard findDashboardByDashboardId(Integer dashboardId) {
 		return dashboardDao.findById(dashboardId);
 	}
 	
-	public List<Dashboard> findAllDashboards() {
-		return dashboardDao.findAllDashboards();
+	public List<Dashboard> findAllDashboardsFromAnUserId(Integer userId) {
+		return dashboardDao.findAllDashboardsFromAUser(userId);
 	}
 	
 	public void deleteDashboard(int dashboardId) throws Exception {
