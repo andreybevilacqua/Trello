@@ -2,6 +2,7 @@ package br.com.ab.Trello.servlet;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -26,6 +27,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 
 	private Integer dashboardId = 0;
 	private Dashboard dashboard;
+	private ListArea listArea;
 
 	@Inject
 	DashboardController dashboardController;
@@ -35,7 +37,6 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//executeURI(PathDiscover.discoverURI(req.getRequestURI()), req, resp);
 		executeURI(req.getRequestURI(), req, resp);
 	}
 
@@ -54,7 +55,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 		req.setAttribute("dashboardId", dashboardId);
 
 		try {
-			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST"));
+			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 
 			if (uri.matches(PathDiscover.getUri("LIST_CREATE"))) {
 				if(req.getParameter("listName") != null) {
@@ -69,7 +70,11 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 				}
 			} else if (uri.matches(PathDiscover.getUri("LIST_DELETE"))){
-
+				//int listAreaId = Integer.parseInt(req.getParameter("listAreaId"));
+				String listAreaId = req.getParameter("listAreaId");
+				//listArea = listAreaController.
+				System.out.println(listAreaId);
+				//deleteListArea(listAreaId);
 			}
 			
 			dispatcher.forward(req, resp);
@@ -89,6 +94,10 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 		
 	}
 
+	private void deleteListArea(int listAreaId) {
+		listAreaController.deleteListArea(listAreaController.findById(listAreaId));
+	}
+
 	private void addNewListArea(String listName, Dashboard dashboard) throws WSObjectException, Exception {
 		ListArea listArea = listAreaController.createList(listName, dashboard);
 		listAreaController.addList(listArea);
@@ -97,14 +106,6 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 	private Dashboard findDashboardByDashboardId(Integer dashboardId){
 		return dashboardController.findDashboardByDashboardId(dashboardId);
 	}
-
-	/*private void tryParseToIntDashboardId(HttpServletRequest req){
-		try{
-			dashboardId = Integer.parseInt(req.getParameter("dashboardId"));
-		} catch (NumberFormatException e){
-			dashboardId = 0;
-		}
-	}*/
 
 	private String editRedirectURI(String uri){
 		uri = PathDiscover.removeDashboardIdRegexFromURI(uri);

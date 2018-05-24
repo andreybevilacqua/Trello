@@ -28,9 +28,6 @@ public class Dashboard {
 	@JoinColumn(nullable = false)
 	private ApplicationUser applicationUser;
 
-	//@Transient
-	//private int numberOfLists;
-
 	@OneToMany(mappedBy = "dashboard")
 	private List<ListArea> listAreas = new ArrayList<ListArea>();
 
@@ -40,7 +37,6 @@ public class Dashboard {
 	public Dashboard(String title, ApplicationUser applicationUser){
 		setTitle(title);
 		setApplicationUser(applicationUser);
-		//numberOfLists = 0;
 	}
 
 	public Dashboard(int id, String title, ApplicationUser applicationUser){
@@ -66,6 +62,4 @@ public class Dashboard {
 
 	public void setTitle(String title) { this.title = title; }
 
-	// Methods
-	//public void addList() { numberOfLists = numberOfLists + 1; }
 }

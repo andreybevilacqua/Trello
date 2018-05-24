@@ -33,11 +33,8 @@ public class DashboardServlet extends HttpServlet {
 	@Inject
 	DashboardController dashboardController;
 	
-	@Inject
-	ListAreaController listAreaController;
-	
-	@Inject
-	CardController cardController;
+	//@Inject
+	//ListAreaController listAreaController;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

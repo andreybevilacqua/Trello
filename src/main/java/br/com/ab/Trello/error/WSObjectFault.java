@@ -4,7 +4,8 @@ public class WSObjectFault {
 
 	private String faultCode;
 	private String faultMessage;
-	
+
+	// Constructors
 	public WSObjectFault(){
 		
 	}
@@ -18,21 +19,23 @@ public class WSObjectFault {
 		this.faultCode = faultCode;
 		this.faultMessage = faultString;
 	}
-	
+
+	// Gets
 	public String getFaultCode() {
 		return faultCode;
 	}
-	
-	public void setFaultCode(String faultCode) {
-		this.faultCode = faultCode;
-	}
-	
+
 	public String getFaultString() {
 		return faultMessage;
+	}
+
+	// Sets
+	public void setFaultCode(String faultCode) {
+		this.faultCode = faultCode;
 	}
 	
 	public void setFaultString(String faultString) {
 		this.faultMessage = faultString;
 	}
-	
+
 }

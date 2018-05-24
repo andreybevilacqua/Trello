@@ -52,6 +52,7 @@
                             <div class="d-flex justify-content-between align-items-center">
 
                                 <div class="btn-group">
+                                    <input type="hidden" name="listAreaId" value="${listArea.getId()}">
                                     <a href="${editListContextPath}/${dashboard.getId()}/${listArea.getId()}" class="view">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
 
                                     <a href="${deleteListContextPath}/${dashboard.getId()}/${listArea.getId()}" class="delete"
@@ -69,20 +70,18 @@
 
         </c:forEach>
 
-        <div class="btn-group">
-            <br>
-            <form action="${createListContextPath}/${dashboard.getId()}" method="POST">
-                <button type="submit" class="btn btn-primary my-2">Create new List</button>
-                <input type="hidden" name="dashboardId" value="${dashboard.getId()}">
-            </form>
-
-            <br>
-
-        </div>
-
     </main>
 
-
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="btn-group">
+        <br>
+        <form action="${createListContextPath}/${dashboard.getId()}" method="POST">
+            <button type="submit" class="btn btn-primary my-2">Create new List</button>
+            <input type="hidden" name="dashboardId" value="${dashboard.getId()}">
+        </form>
+    </div>
 
 </tags:pageTemplate>
 

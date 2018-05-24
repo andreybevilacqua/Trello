@@ -25,19 +25,6 @@ public class CardDao {
 		return this.entityManager.find(Card.class, cardId);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Card> findAllCards(){
-		return this.entityManager.createQuery("SELECT c FROM Card c").getResultList();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Card> findAllCardsFromListId(Integer listId){
-		return (List<Card>)entityManager.createQuery("SELECT C FROM Card c WHERE c.listId = :listId")
-									    .setParameter("listId", listId)
-									    .getResultList();
-		
-	}
-	
 	public void deleteCard(Card card){
 		this.entityManager.remove(card);
 	}

@@ -43,7 +43,6 @@ public class ApplicationUserDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<ApplicationUser> findAllUser(){
-		// Here is the name of the class! Not table! So its ApplicationUser.
 		return entityManager.createQuery("SELECT u FROM ApplicationUser u").getResultList();
 	}
 }

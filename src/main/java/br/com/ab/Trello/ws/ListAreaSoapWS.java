@@ -26,22 +26,11 @@ public class ListAreaSoapWS {
 	}
 
 	@WebResult(name = "list")
-	public ArrayList<ListArea> findByDashboardId(
-			@WebParam(name = "dashboardId") @XmlElement(required = true, nillable = false) Integer dashboardId) {
-		return this.listAreaDao.findListByDashboardId(dashboardId);
-	}
-
-	@WebResult(name = "list")
 	public ListArea findById(@WebParam(name = "listId") @XmlElement(required = true, nillable = false) Integer listId) {
 		return this.listAreaDao.findById(listId);
 	}
 
-	@WebResult(name = "allLists")
-	public ArrayList<ListArea> getAll() {
-		return this.listAreaDao.findAllLists();
-	}
-
 	public void delete(@WebParam(name = "listArea") @XmlElement(required = true, nillable = false) ListArea listArea) {
-		this.listAreaDao.deleteList(listArea);
+		this.listAreaDao.deleteListArea(listArea);
 	}
 }

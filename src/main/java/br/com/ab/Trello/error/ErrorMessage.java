@@ -7,15 +7,21 @@ public enum ErrorMessage {
 	
 	private final String code;
 	private final String message;
-	
+
+	// Constructors
 	private ErrorMessage(String code, String message){
 		this.code = code;
 		this.message = message;
 	}
+
+	// Gets
 	
 	public String getCode(){return code;}
 	public String getMessage(){return message;}
-	
+
+	// Sets
+
+	// Methods
 	@Override
 	public String toString(){
 		return code + ": " + message;

@@ -27,21 +27,21 @@ public class UserSoapWS {
 	@WebResult(name = "ApplicationUser")
 	public boolean addUser(@WebParam(name = "New_User") @XmlElement(required = true, nillable = false) ApplicationUser applicationUser)
 			throws WSObjectException {
-		if (validateUser(applicationUser)) {
+		try{
 			applicationUserDao.addUser(applicationUser);
 			return true;
-		} else {
+		} catch(Exception e) {
 			throw new WSObjectException(new WSObjectFault(ErrorMessage.EMPTY_NULL_PARAMETERS));
 		}
 	}
 
 	@WebMethod(operationName = "findUserById")
 	@WebResult(name = "user")
-	public ApplicationUser findUserById(@WebParam(name = "userId") @XmlElement(required = true, nillable = false) Integer userId)
+	public ApplicationUser findById(@WebParam(name = "userId") @XmlElement(required = true, nillable = false) Integer userId)
 			throws WSObjectException {
-		if(validateUserId(userId)){
+		try{
 			return this.applicationUserDao.findUserById(userId);
-		} else{
+		} catch(Exception e){
 			throw new WSObjectException(new WSObjectFault(ErrorMessage.ID_NULL_MINOR_ZERO));
 		}
 		
@@ -51,26 +51,6 @@ public class UserSoapWS {
 	@WebResult(name="listOfUsers")
 	public List<ApplicationUser> findAllUser() {
 		return this.applicationUserDao.findAllUser();
-	}
-
-	public boolean validateUser(ApplicationUser applicationUser) {
-		boolean result = false;
-		if (!applicationUser.equals(null)){
-			if(!applicationUser.getLogin().equals(null) && !applicationUser.getPassword().equals(null)) {
-				if (!applicationUser.getLogin().equals("") && !applicationUser.getPassword().equals("") && !applicationUser.getLogin().equals("?")){
-					result = true;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public boolean validateUserId(Integer userId){
-		boolean result = false;
-		if(userId != null && userId >= 0){
-			result = true;
-		}
-		return result;
 	}
 
 }

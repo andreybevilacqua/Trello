@@ -1,6 +1,7 @@
 package br.com.ab.Trello.ws;
 
-import java.util.List;
+import br.com.ab.Trello.dao.CommentDao;
+import br.com.ab.Trello.model.Comment;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -8,9 +9,6 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
-
-import br.com.ab.Trello.dao.CommentDao;
-import br.com.ab.Trello.model.Comment;
 
 @WebService
 @Stateless
@@ -26,20 +24,9 @@ public class CommentSoapWS {
 	}
 
 	@WebResult(name = "commentFound")
-	public Comment findCommentById(
+	public Comment findById(
 			@WebParam(name = "commentId") @XmlElement(required = true, nillable = false) Integer commentId) {
-		return this.commentDao.findCommentById(commentId);
-	}
-
-	@WebResult(name = "allComments")
-	public List<Comment> findAllComments() {
-		return this.commentDao.findAllComments();
-	}
-
-	@WebResult(name = "allComments")
-	public List<Comment> findAllCommentsFromCard(
-			@WebParam(name = "cardId") @XmlElement(required = true, nillable = false) Integer cardId) {
-		return this.commentDao.findAllCommentsFromCardId(cardId);
+		return this.commentDao.findById(commentId);
 	}
 
 	public void deleteComment(

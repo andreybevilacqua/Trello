@@ -16,56 +16,33 @@ public class ListAreaDao {
 	
 	@PersistenceContext(unitName = "Trello")
 	private EntityManager entityManager;
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+	public EntityManager getEntityManager(){
+		return entityManager;
+	}
 	
 	public void addList(ListArea listArea){
 		this.entityManager.persist(listArea);
 	}
 	
-	public ListArea findById(Integer listId){
-		ListArea listArea = this.entityManager.find(ListArea.class, listId);
+	public ListArea findById(Integer listAreaId){
+		ListArea listArea = this.entityManager.find(ListArea.class, listAreaId);
 		return listArea;
 	}
-	
-	public ArrayList<ListArea> findAllLists(){
-		
-		return (ArrayList<ListArea>) this.entityManager.createQuery("SELECT l FROM ListArea l", ListArea.class).getResultList();
+
+	public void deleteListArea(ListArea listArea){
+		this.entityManager.remove(listArea);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<ListArea> findListByDashboardId(Integer dashboardId){
+	public ArrayList<ListArea> findAllListAreasFromDashboardByDashboardId(Integer dashboardId){
 		return (ArrayList<ListArea>)entityManager.createQuery("SELECT l FROM ListArea l WHERE l.dashboardId = :dashboardId ")
 					 .setParameter("dashboardId", dashboardId)
 					 .getResultList();
 	}
-	
-	public void deleteList(ListArea listArea){
-		this.entityManager.remove(listArea);
-	}
-	
-	public ListArea findByTitle(String title){
-		return this.entityManager.find(ListArea.class, title);
-	}
-	
-	public ArrayList<ListArea> totalListsPerDashboard() {
-		
-		@SuppressWarnings("unchecked")
-		ArrayList<ListArea> myListArea = (ArrayList<ListArea>) entityManager
-				.createQuery(" SELECT l " + 
-						" FROM Dashboard d, ListArea l " +
-						" WHERE l.dashboardId = d.dashboardId " + 
-						" ORDER BY d.dashboardId ")
-				.getResultList();
-		
-		return myListArea;
-	}
-
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
-	
-	public EntityManager getEntityManager(){
-		return entityManager;
-	}
-	
 
 }

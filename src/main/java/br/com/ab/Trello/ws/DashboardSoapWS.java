@@ -27,10 +27,10 @@ public class DashboardSoapWS {
 	@WebResult(name = "Dashboard")
 	public boolean addDashboard(
 			@WebParam(name = "New_Dashboard") @XmlElement(required = true, nillable = false) Dashboard dashboard) throws Exception, WSObjectException {
-		if (validateDashboard(dashboard)) {
+		try{
 			dashboardDao.addDashboard(dashboard);
 			return true;
-		} else {
+		} catch(Exception e) {
 			throw new WSObjectException(new WSObjectFault(ErrorMessage.EMPTY_NULL_PARAMETERS));
 		}
 	}
@@ -40,36 +40,17 @@ public class DashboardSoapWS {
 	public Dashboard findById(
 			@WebParam(name = "dashboardId") @XmlElement(required = true, nillable = false) Integer dashboardId)
 			throws Exception, WSObjectException {
-		if (validateDashboardId(dashboardId)) {
+		try{
 			return this.dashboardDao.findById(dashboardId);
-		} else {
+		} catch(Exception e) {
 			throw new WSObjectException(new WSObjectFault(ErrorMessage.ID_NULL_MINOR_ZERO));
 		}
 	}
 
 	@WebMethod(operationName = "findAllDashboard")
 	@WebResult(name = "ListOfDashboards")
-	public List<Dashboard> findAllDashboard() {
+	public List<Dashboard> findAllDashboardsFromAUser() {
 		return this.dashboardDao.findAllDashboardsFromAUser(1);
 	}
 
-	public boolean validateDashboard(Dashboard dashboard) {
-		boolean result = false;
-		/*if (!dashboard.equals(null)) {
-			if (!dashboard.getTitle().equals(null) && !(dashboard.getUserId() < 0)) {
-				if (!dashboard.getTitle().equals("") && !dashboard.getTitle().equals("?")) {
-					result = true;
-				}
-			}
-		}*/
-		return result;
-	}
-
-	public boolean validateDashboardId(Integer dashboardId) {
-		boolean result = false;
-		if (dashboardId != null && dashboardId >= 0) {
-			result = true;
-		}
-		return result;
-	}
 }

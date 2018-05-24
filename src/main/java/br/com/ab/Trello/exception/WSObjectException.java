@@ -9,7 +9,8 @@ public class WSObjectException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	private WSObjectFault fault;
-	
+
+	// Constructors
 	public WSObjectException(){
 		
 	}
@@ -39,9 +40,12 @@ public class WSObjectException extends Exception {
 	    this.fault.setFaultString(message);
 	    this.fault.setFaultCode(code);
 	}
-	
+
+	// Gets
 	public WSObjectFault getWSObjectFault(){
 		return fault;
 	}
-	
+
+	// Sets
+
 }
