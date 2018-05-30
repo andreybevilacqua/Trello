@@ -70,11 +70,20 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 				}
 			} else if (uri.matches(PathDiscover.getUri("LIST_DELETE"))){
-				//int listAreaId = Integer.parseInt(req.getParameter("listAreaId"));
-				String listAreaId = req.getParameter("listAreaId");
-				//listArea = listAreaController.
-				System.out.println(listAreaId);
-				//deleteListArea(listAreaId);
+				int listAreaId = parseListAreaId(req.getParameter("listAreaId"));
+
+				if(listAreaId > -1){
+					listArea = listAreaController.findById(listAreaId);
+					deleteListArea(listArea);
+
+					// Encaminha para DASHBOARD_DETAIL.
+					dispatcher = req.getRequestDispatcher(PathDiscover.getUri("DASHBOARD_DETAIL"));
+					resp.sendRedirect(editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL")));
+				} else {
+					// Retirar o ID do endereço.
+					resp.sendRedirect(PathDiscover.getUri("ERROR_PAGE"));
+					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("ERROR_PAGE"));
+				}
 			}
 			
 			dispatcher.forward(req, resp);
@@ -94,8 +103,8 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 		
 	}
 
-	private void deleteListArea(int listAreaId) {
-		listAreaController.deleteListArea(listAreaController.findById(listAreaId));
+	private void deleteListArea(ListArea listArea) {
+		listAreaController.deleteListArea(listArea);
 	}
 
 	private void addNewListArea(String listName, Dashboard dashboard) throws WSObjectException, Exception {
@@ -111,6 +120,17 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 		uri = PathDiscover.removeDashboardIdRegexFromURI(uri);
 		uri = uri.concat(String.valueOf(dashboardId));
 		return uri;
+	}
+
+	private int parseListAreaId(String stringListAreaId){
+		try{
+			return Integer.parseInt(stringListAreaId);
+		} catch (NumberFormatException e){
+			return -1;
+		} catch (Exception e){
+			e.printStackTrace();
+			return -1;
+		}
 	}
 	
 }

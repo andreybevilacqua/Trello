@@ -52,11 +52,17 @@
                             <div class="d-flex justify-content-between align-items-center">
 
                                 <div class="btn-group">
-                                    <input type="hidden" name="listAreaId" value="${listArea.getId()}">
-                                    <a href="${editListContextPath}/${dashboard.getId()}/${listArea.getId()}" class="view">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <form action="${editListContextPath}/${dashboard.getId()}" method="POST">
+                                        <button type="submit" class="btn btn-info">Edit List</button>
+                                        <input type="hidden" name="listAreaId" value="${listArea.getId()}">
+                                    </form>
 
-                                    <a href="${deleteListContextPath}/${dashboard.getId()}/${listArea.getId()}" class="delete"
-                                       onclick="return confirm('Are you sure you want to Delete?');">Delete</a>
+                                    <br>
+                                    <br>
+                                    <form action="${deleteListContextPath}/${dashboard.getId()}" method="POST">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to Delete?');">Delete List</button>
+                                        <input type="hidden" name="listAreaId" value="${listArea.getId()}">
+                                    </form>
                                 </div>
 
                             </div>

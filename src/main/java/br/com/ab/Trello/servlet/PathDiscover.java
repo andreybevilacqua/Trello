@@ -19,8 +19,11 @@ public final class PathDiscover {
 		
 		// LIST
 		maps.put("LIST_CREATE", new String[] {"/Trello/list/create/\\d+", "/WEB-INF/views/list/createList.jsp"});
-        maps.put("LIST_EDIT", new String[] {"/Trello/list/edit/\\d+/\\d+", "/WEB-INF/views/list/editList.jsp"});
-        maps.put("LIST_DELETE", new String[] {"/Trello/list/delete/\\d+/\\d+", ""});
+        maps.put("LIST_EDIT", new String[] {"/Trello/list/edit/\\d+", "/WEB-INF/views/list/editList.jsp"});
+        maps.put("LIST_DELETE", new String[] {"/Trello/list/delete/\\d+", ""});
+
+        // ERROR
+		maps.put("ERROR_PAGE", new String[] {"/Trello/error", "/WEB-INF/views/error/errorPage.jsp"});
 	}
 	
 	public static String getUri(String key) { return maps.get(key)[0]; }
@@ -36,9 +39,9 @@ public final class PathDiscover {
 		return uri = uri.replace(uri.substring((uri.length() -3), uri.length()), "");
 	}
 
-    public static String removeListAreaIdRegexFromURI(String uri){
+    /*public static String removeListAreaIdRegexFromURI(String uri){
         return uri = uri.replace(uri.substring((uri.length() -4), uri.length()), "");
-    }
+    }*/
 
 	/*public static String discoverURI(String uri) {
 		return removeContextURI(uri);
