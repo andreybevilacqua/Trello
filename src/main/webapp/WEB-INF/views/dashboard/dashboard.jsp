@@ -30,13 +30,18 @@
                   <small class="text-muted">Lists: ${dashboard.getNumberOfLists() }</small>
                   <div class="d-flex justify-content-between align-items-center">
 
-                    <div class="btn-group">                      	
-                      	<a href="${detailDashboardContextPath}/${dashboard.getId()}" class="view">View</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                      
-                      	<a href="${deleteDashboardContextPath}/${dashboard.getId()}" class="delete"
-                      	   onclick="return confirm('Are you sure you want to Delete?');">Delete</a>
-                    </div>
-                    
+
+                      <form action="${detailDashboardContextPath}/${dashboard.getId()}" method="POST">
+                          <button class="btn btn-link" type="submit">View</button>
+                          <input type="hidden" name="dashboardId" value="${dashboard.getId()}">
+                      </form>
+
+                      <form action="${deleteDashboardContextPath}/${dashboard.getId()}" method="POST">
+                          <button type="submit" class="btn btn-link" onclick="return confirm('You will delete every list areas together. Are you sure? ');">Delete</button>
+                          <input type="hidden" name="dashboardId" value="${dashboard.getId()}">
+                      </form>
+
+
                   </div>
                   <br>
                   <br>

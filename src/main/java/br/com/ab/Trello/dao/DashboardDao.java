@@ -48,9 +48,11 @@ public class DashboardDao {
 	}
 	
 	public void deleteDashboard(int dashboardId) {
-		entityManager.createQuery("DELETE FROM Dashboard d WHERE d.dashboardId = :dashboardId")
+		Dashboard dashboard = this.entityManager.find(Dashboard.class, dashboardId);
+		this.entityManager.remove(dashboard);
+		/*entityManager.createQuery("DELETE FROM Dashboard d WHERE d.dashboardId = :dashboardId")
 					.setParameter("dashboardId", dashboardId)
-					.executeUpdate();
+					.executeUpdate();*/
 	}
 
 }

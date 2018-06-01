@@ -1,5 +1,7 @@
 package br.com.ab.Trello.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class Card {
 	private ListArea listArea;
 
 	@OneToMany(mappedBy = "card")
+	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
 	private List<Comment> comments = new ArrayList<Comment>();
 
 	// Constructors

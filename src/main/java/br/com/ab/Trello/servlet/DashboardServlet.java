@@ -91,8 +91,11 @@ public class DashboardServlet extends HttpServlet {
 			}
 			
 		} else if (uri.matches((PathDiscover.getUri("DASHBOARD_DELETE")))) {
+			int dashboardId = parseDashbaordId(req.getParameter("dashboardId"));
+
 			try {
-				deleteDashboard(PathDiscover.findObjectId(uri));
+				//deleteDashboard(PathDiscover.findObjectId(uri));
+				deleteDashboard(dashboardId);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -123,6 +126,17 @@ public class DashboardServlet extends HttpServlet {
 
 	private List<Dashboard> findAllDashboardsFromAUser(Integer userId){
 		return dashboardController.findAllDashboardsFromAnUserId(userId);
+	}
+
+	private int parseDashbaordId(String stringDashboardId){
+		try{
+			return Integer.parseInt(stringDashboardId);
+		} catch (NumberFormatException e){
+			return -1;
+		} catch (Exception e){
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 }

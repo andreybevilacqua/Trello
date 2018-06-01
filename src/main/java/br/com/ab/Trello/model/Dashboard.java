@@ -1,5 +1,7 @@
 package br.com.ab.Trello.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,6 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "Dashboard")
@@ -29,6 +33,7 @@ public class Dashboard {
 	private ApplicationUser applicationUser;
 
 	@OneToMany(mappedBy = "dashboard")
+	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
 	private List<ListArea> listAreas = new ArrayList<ListArea>();
 
 	// Constructors
