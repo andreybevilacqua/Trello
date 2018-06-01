@@ -1,16 +1,11 @@
 package br.com.ab.Trello.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-
 import br.com.ab.Trello.dao.CardDao;
 import br.com.ab.Trello.model.Card;
 import br.com.ab.Trello.model.ListArea;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 @Stateless
 public class CardController {
@@ -19,6 +14,10 @@ public class CardController {
 	CardDao cardDao;
 	
 	public CardController() {
+	}
+
+	public Card createNewCard(String title, ListArea listArea){
+		return new Card(title, listArea);
 	}
 	
 	public void addCard(Card card) {

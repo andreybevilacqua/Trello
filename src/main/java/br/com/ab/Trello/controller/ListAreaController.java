@@ -19,7 +19,9 @@ public class ListAreaController {
 	public ListAreaController() {
 	}
 	
-	public ListArea createList(String listName, Dashboard dashboard) throws WSObjectException, Exception { return new ListArea(listName, dashboard); }
+	public ListArea createListArea(String listName, Dashboard dashboard) throws WSObjectException, Exception {
+		return new ListArea(listName, dashboard);
+	}
 
 	public ListArea findListAreaById(Integer listAreaId){
 		return listAreaDao.findListAreaById(listAreaId);

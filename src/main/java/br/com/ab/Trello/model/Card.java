@@ -16,8 +16,6 @@ public class Card {
 	@Column(nullable = false)
 	private String title;
 
-	private String detail;
-
 	@ManyToOne
 	@JoinColumn(name = "listId", nullable = false)
 	private ListArea listArea;
@@ -30,15 +28,12 @@ public class Card {
 	public Card(){ }
 	
 	public Card(String title){ this.title = title; }
-	
-	public Card(String tile, String detail, Comment comment){
-		this.title = tile;
-		this.detail = detail;
+
+	public Card(String title, ListArea listArea){
+		this.title = title;
+		this.listArea = listArea;
 	}
 
-	// Gets
-	public String getDetail() { return detail; }
-	
 	public Integer getId(){ return cardId; }
 	
 	public String getTitle() { return title; }
@@ -51,8 +46,6 @@ public class Card {
 	public void setId(Integer cardId){ this.cardId = cardId; }
 
 	public void setTitle(String title) { this.title = title; }
-
-	public void setDetail(String detail) { this.detail = detail; }
 
 	public void setListArea(ListArea listArea) { this.listArea = listArea; }
 

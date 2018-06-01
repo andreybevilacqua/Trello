@@ -1,15 +1,12 @@
 package br.com.ab.Trello.dao;
 
-import java.util.ArrayList;
-import java.util.List;
+import br.com.ab.Trello.model.ListArea;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import br.com.ab.Trello.model.ListArea;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -31,8 +28,7 @@ public class ListAreaDao {
 	}
 	
 	public ListArea findListAreaById(Integer listAreaId){
-		ListArea listArea = this.entityManager.find(ListArea.class, listAreaId);
-		return listArea;
+		return this.entityManager.find(ListArea.class, listAreaId);
 	}
 
 	public void deleteListArea(int listAreaId){
@@ -46,11 +42,11 @@ public class ListAreaDao {
 		this.entityManager.merge(listArea);
 	}
 	
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	public ArrayList<ListArea> findAllListAreasFromDashboardByDashboardId(Integer dashboardId){
 		return (ArrayList<ListArea>)entityManager.createQuery("SELECT l FROM ListArea l WHERE l.dashboardId = :dashboardId ")
 					 .setParameter("dashboardId", dashboardId)
 					 .getResultList();
-	}
+	}*/
 
 }

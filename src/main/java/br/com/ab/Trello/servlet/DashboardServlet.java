@@ -46,7 +46,7 @@ public class DashboardServlet extends HttpServlet {
 		try {
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD"));
 			
-			dispatcher = discoverWhichURIShouldForwad(uri, req, resp, dispatcher);
+			dispatcher = discoverWhichURIShouldForward(uri, req, resp, dispatcher);
 			
 			dispatcher.forward(req, resp);
 			
@@ -64,8 +64,8 @@ public class DashboardServlet extends HttpServlet {
 		}
 	}
 
-	private RequestDispatcher discoverWhichURIShouldForwad(String uri, HttpServletRequest req, HttpServletResponse resp,
-														   RequestDispatcher dispatcher) throws IOException {
+	private RequestDispatcher discoverWhichURIShouldForward(String uri, HttpServletRequest req, HttpServletResponse resp,
+															RequestDispatcher dispatcher) throws IOException {
 		
 		if (uri.equals(PathDiscover.getUri("DASHBOARD"))) {
 			dashboards = (ArrayList<Dashboard>) findAllDashboardsFromAUser(getLoggedUser().getId());

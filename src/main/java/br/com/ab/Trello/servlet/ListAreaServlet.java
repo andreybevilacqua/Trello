@@ -44,6 +44,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 	}
 	
 	private void executeURI(String uri, HttpServletRequest req, HttpServletResponse resp) {
+
 		RequestDispatcher dispatcher;
 
 		dashboardId = PathDiscover.findObjectId(uri);
@@ -128,7 +129,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 	}
 
 	private void addNewListArea(String listName, Dashboard dashboard) throws WSObjectException, Exception {
-		ListArea listArea = listAreaController.createList(listName, dashboard);
+		ListArea listArea = listAreaController.createListArea(listName, dashboard);
 		listAreaController.addList(listArea);
 	}
 

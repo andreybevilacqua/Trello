@@ -20,11 +20,7 @@
 			<div class="form-group">
 				<label>Card name:</label>
 				<input type="text" name="cardName" class="form-control"/>
-			</div>
-
-			<div class="form-group">
-				<label>Comment:</label>
-				<input type="text" name="comment" class="form-control"/>
+				<input type="hidden" name="listAreaId" value="${listArea.getId()}">
 			</div>
 			
 			<button type="submit" class="btn btn-primary" value="Create">Create</button>
