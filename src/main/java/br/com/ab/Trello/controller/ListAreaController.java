@@ -21,11 +21,11 @@ public class ListAreaController {
 	
 	public ListArea createList(String listName, Dashboard dashboard) throws WSObjectException, Exception { return new ListArea(listName, dashboard); }
 
-	public ListArea findById(Integer listAreaId){
-		return listAreaDao.findById(listAreaId);
+	public ListArea findListAreaById(Integer listAreaId){
+		return listAreaDao.findListAreaById(listAreaId);
 	}
 
-	public void deleteListArea(ListArea listArea){ listAreaDao.deleteListArea(listArea); }
+	public void deleteListArea(int listAreaId){ listAreaDao.deleteListArea(listAreaId); }
 
 	public void addList(ListArea listArea) throws WSObjectException {
 		try {
@@ -33,6 +33,10 @@ public class ListAreaController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void editListAreaTitle(String listAreaName, int listAreaId){
+		listAreaDao.editListAreaTitle(listAreaName, listAreaId);
 	}
 	
 	public ArrayList<ListArea> findAllListAreasFromDashboardByDashboardId(Integer dashboardId){

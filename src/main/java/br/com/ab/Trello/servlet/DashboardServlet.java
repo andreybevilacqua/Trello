@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.ab.Trello.controller.ApplicationUserController;
-import br.com.ab.Trello.controller.CardController;
 import br.com.ab.Trello.controller.DashboardController;
-import br.com.ab.Trello.controller.ListAreaController;
 import br.com.ab.Trello.exception.WSObjectException;
 import br.com.ab.Trello.model.ApplicationUser;
 import br.com.ab.Trello.model.Dashboard;
@@ -101,7 +99,7 @@ public class DashboardServlet extends HttpServlet {
 			resp.sendRedirect(PathDiscover.getUri("DASHBOARD")); // Redirect to dashboards page.
 		
 		} else if (uri.matches(PathDiscover.getUri("DASHBOARD_DETAIL"))) {
-			Dashboard d = dashboardController.findDashboardByDashboardId(PathDiscover.findObjectId(uri));
+			Dashboard d = dashboardController.findDashboardById(PathDiscover.findObjectId(uri));
 			req.setAttribute("dashboard", d);
 			req.setAttribute("dashboardId", d.getId()); //
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD_DETAIL"));

@@ -35,7 +35,7 @@ public class DashboardDao {
 			}
 	}
 
-	public Dashboard findById(Integer dashboardId) {
+	public Dashboard findDashboardById(Integer dashboardId) {
 		return this.entityManager.find(Dashboard.class, dashboardId);
 	}
 

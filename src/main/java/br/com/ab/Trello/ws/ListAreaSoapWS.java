@@ -1,7 +1,5 @@
  package br.com.ab.Trello.ws;
 
-import java.util.ArrayList;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jws.WebParam;
@@ -27,10 +25,10 @@ public class ListAreaSoapWS {
 
 	@WebResult(name = "list")
 	public ListArea findById(@WebParam(name = "listId") @XmlElement(required = true, nillable = false) Integer listId) {
-		return this.listAreaDao.findById(listId);
+		return this.listAreaDao.findListAreaById(listId);
 	}
 
-	public void delete(@WebParam(name = "listArea") @XmlElement(required = true, nillable = false) ListArea listArea) {
-		this.listAreaDao.deleteListArea(listArea);
+	public void delete(@WebParam(name = "listArea") @XmlElement(required = true, nillable = false) int listAreaId) {
+		this.listAreaDao.deleteListArea(listAreaId);
 	}
 }

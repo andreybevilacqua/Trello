@@ -1,6 +1,7 @@
 package br.com.ab.Trello.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
@@ -29,13 +30,20 @@ public class ListAreaDao {
 		this.entityManager.persist(listArea);
 	}
 	
-	public ListArea findById(Integer listAreaId){
+	public ListArea findListAreaById(Integer listAreaId){
 		ListArea listArea = this.entityManager.find(ListArea.class, listAreaId);
 		return listArea;
 	}
 
-	public void deleteListArea(ListArea listArea){
+	public void deleteListArea(int listAreaId){
+		ListArea listArea = this.entityManager.find(ListArea.class, listAreaId);
 		this.entityManager.remove(listArea);
+	}
+
+	public void editListAreaTitle(String listAreaName, int listAreaId){
+		ListArea listArea = this.entityManager.find(ListArea.class, listAreaId);
+		listArea.setTitle(listAreaName);
+		this.entityManager.merge(listArea);
 	}
 	
 	@SuppressWarnings("unchecked")

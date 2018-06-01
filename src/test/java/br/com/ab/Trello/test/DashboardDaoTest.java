@@ -49,7 +49,7 @@ public class DashboardDaoTest {
 		
 		Mockito.when(entityManager.find(Dashboard.class,  dashboard.getId())).thenReturn(dashboard);
 		
-		Dashboard testDashboard = dashboardDao.findDashboardByDashboardId(1);
+		Dashboard testDashboard = dashboardDao.findDashboardById(1);
 		
 		Assert.assertEquals(dashboard.getId(), testDashboard.getId());
 		Assert.assertEquals(dashboard.getUserId(), testDashboard.getUserId());

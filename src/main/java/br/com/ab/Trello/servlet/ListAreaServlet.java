@@ -2,7 +2,6 @@ package br.com.ab.Trello.servlet;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -27,7 +26,6 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 
 	private Integer dashboardId = 0;
 	private Dashboard dashboard;
-	private ListArea listArea;
 
 	@Inject
 	DashboardController dashboardController;
@@ -58,7 +56,10 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 
 			if (uri.matches(PathDiscover.getUri("LIST_CREATE"))) {
-				if(req.getParameter("listName") != null) {
+
+				String listAreaName = req.getParameter("listName");
+
+				if(listAreaName != null) {
 					try {
 						addNewListArea(req.getParameter("listName"), dashboard);
 						dispatcher = req.getRequestDispatcher(PathDiscover.getUri("DASHBOARD_DETAIL"));
@@ -73,16 +74,31 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 				int listAreaId = parseListAreaId(req.getParameter("listAreaId"));
 
 				if(listAreaId > -1){
-					listArea = listAreaController.findById(listAreaId);
-					deleteListArea(listArea);
+					deleteListArea(listAreaId);
 
-					// Encaminha para DASHBOARD_DETAIL.
 					dispatcher = req.getRequestDispatcher(PathDiscover.getUri("DASHBOARD_DETAIL"));
-					resp.sendRedirect(editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL")));
+					resp.sendRedirect(editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"))); // Redirect do Dashboard Servlet
 				} else {
 					// Retirar o ID do endereço.
-					resp.sendRedirect(PathDiscover.getUri("ERROR_PAGE"));
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("ERROR_PAGE"));
+				}
+			} else if(uri.matches(PathDiscover.getUri("LIST_EDIT"))){
+
+				String listAreaName = req.getParameter("listName");
+				int listAreaId = parseListAreaId(req.getParameter("listAreaId"));
+
+				if(listAreaName != null){
+					try{
+						listAreaController.editListAreaTitle(listAreaName, listAreaId);
+					} catch (Exception e){
+						e.printStackTrace();
+					}
+					resp.sendRedirect(editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL")));
+				} else{
+					ListArea listArea = findListAreaById(listAreaId);
+					req.setAttribute("listArea", listArea);
+
+					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_EDIT"));
 				}
 			}
 			
@@ -103,8 +119,12 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 		
 	}
 
-	private void deleteListArea(ListArea listArea) {
-		listAreaController.deleteListArea(listArea);
+	private ListArea findListAreaById(int listAreaId){
+		return listAreaController.findListAreaById(listAreaId);
+    }
+
+	private void deleteListArea(int listAreaId) {
+		listAreaController.deleteListArea(listAreaId);
 	}
 
 	private void addNewListArea(String listName, Dashboard dashboard) throws WSObjectException, Exception {
@@ -113,7 +133,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 	}
 
 	private Dashboard findDashboardByDashboardId(Integer dashboardId){
-		return dashboardController.findDashboardByDashboardId(dashboardId);
+		return dashboardController.findDashboardById(dashboardId);
 	}
 
 	private String editRedirectURI(String uri){

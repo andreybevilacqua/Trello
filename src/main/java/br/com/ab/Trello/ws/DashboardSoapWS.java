@@ -35,13 +35,13 @@ public class DashboardSoapWS {
 		}
 	}
 
-	@WebMethod(operationName = "findDashboardByDashboardId")
+	@WebMethod(operationName = "findDashboardById")
 	@WebResult(name = "dashboardFound")
 	public Dashboard findById(
 			@WebParam(name = "dashboardId") @XmlElement(required = true, nillable = false) Integer dashboardId)
 			throws Exception, WSObjectException {
 		try{
-			return this.dashboardDao.findById(dashboardId);
+			return this.dashboardDao.findDashboardById(dashboardId);
 		} catch(Exception e) {
 			throw new WSObjectException(new WSObjectFault(ErrorMessage.ID_NULL_MINOR_ZERO));
 		}

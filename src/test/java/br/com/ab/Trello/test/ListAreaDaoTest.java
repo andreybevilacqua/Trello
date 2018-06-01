@@ -48,7 +48,7 @@ public class ListAreaDaoTest {
 		
 		Mockito.when(entityManager.find(ListArea.class, 1)).thenReturn(listArea);
 		
-		ListArea testListArea = listAreaDao.findDashboardByDashboardId(1);
+		ListArea testListArea = listAreaDao.findDashboardById(1);
 
 		Assert.assertSame(testListArea.getId(), listArea.getId());
 	}*/
@@ -72,7 +72,7 @@ public class ListAreaDaoTest {
 		
 		Mockito.when(entityManager.find(ListArea.class, 1)).thenReturn(listArea);
 		
-		ListArea testListArea = listAreaDao.findDashboardByDashboardId(1);
+		ListArea testListArea = listAreaDao.findDashboardById(1);
 		
 		if(testListArea != null){
 			// Now we should create the mock answer for the delete method.

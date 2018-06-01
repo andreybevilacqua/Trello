@@ -21,7 +21,7 @@
              width="88"> <br>
     </div>
 
-    <main role="main" class="container"> <!-- Loop para div das listas -->
+    <main role="main" class="container">
 
         <c:forEach var="listArea" items="${dashboard.getListAreas() }">
 
@@ -45,29 +45,19 @@
                                 </small>
 
                                 <br>
-                                <br>
+
+                                <form action="${editListContextPath}/${dashboard.getId()}" method="POST">
+                                    <button class="btn btn-link btn-sm" type="submit">Edit List</button>
+                                    <input type="hidden" name="listAreaId" value="${listArea.getId()}">
+                                </form>
+
+                                <form action="${deleteListContextPath}/${dashboard.getId()}" method="POST">
+                                    <button type="submit" class="btn btn-link btn-sm" onclick="return confirm('Are you sure you want to Delete?');">Delete List</button>
+                                    <input type="hidden" name="listAreaId" value="${listArea.getId()}">
+                                </form>
 
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center">
-
-                                <div class="btn-group">
-                                    <form action="${editListContextPath}/${dashboard.getId()}" method="POST">
-                                        <button type="submit" class="btn btn-info">Edit List</button>
-                                        <input type="hidden" name="listAreaId" value="${listArea.getId()}">
-                                    </form>
-
-                                    <br>
-                                    <br>
-                                    <form action="${deleteListContextPath}/${dashboard.getId()}" method="POST">
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to Delete?');">Delete List</button>
-                                        <input type="hidden" name="listAreaId" value="${listArea.getId()}">
-                                    </form>
-                                </div>
-
-                            </div>
-                            <br>
-                            <br>
                         </div>
                     </div>
                 </div>

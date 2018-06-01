@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.com.ab.Trello.dao.DashboardDao;
-import br.com.ab.Trello.exception.WSObjectException;
 import br.com.ab.Trello.model.Dashboard;
 import br.com.ab.Trello.model.ApplicationUser;
 
@@ -30,8 +29,8 @@ public class DashboardController {
 		}
 	}
 	
-	public Dashboard findDashboardByDashboardId(Integer dashboardId) {
-		return dashboardDao.findById(dashboardId);
+	public Dashboard findDashboardById(Integer dashboardId) {
+		return dashboardDao.findDashboardById(dashboardId);
 	}
 	
 	public List<Dashboard> findAllDashboardsFromAnUserId(Integer userId) {
