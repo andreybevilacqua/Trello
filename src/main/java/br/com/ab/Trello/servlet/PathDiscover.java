@@ -5,7 +5,7 @@ import java.util.Map;
 
 public final class PathDiscover {
 
-	static final Map<String, String[]> maps = new HashMap<>();
+	private static final Map<String, String[]> maps = new HashMap<>();
 	
 	static {
 		
@@ -22,6 +22,11 @@ public final class PathDiscover {
         maps.put("LIST_EDIT", new String[] {"/Trello/list/edit/\\d+", "/WEB-INF/views/list/editList.jsp"});
         maps.put("LIST_DELETE", new String[] {"/Trello/list/delete/\\d+", ""});
 
+        // CARD
+		maps.put("CARD_CREATE", new String[] {"/Trello/card/create", "/WEB-INF/views/card/createCard.jsp"});
+		maps.put("CARD_EDIT", new String[] {"/Trello/card/edit", "/WEB-INF/views/card/editCard.jsp"});
+		maps.put("CARD_DELETE", new String[] {"Trello/card/delete", ""});
+
         // ERROR
 		maps.put("ERROR_PAGE", new String[] {"/Trello/error", "/WEB-INF/views/error/errorPage.jsp"});
 	}
@@ -31,26 +36,11 @@ public final class PathDiscover {
 	public static String getJsp(String key) { return maps.get(key)[1]; }
 	
 	public static int findObjectId(String uri) {
-		int objectId = Integer.parseInt(uri.replaceAll("[^-?0-9]+", ""));
-		return objectId;
+		return Integer.parseInt(uri.replaceAll("[^-?0-9]+", ""));
 	}
 
 	public static String removeDashboardIdRegexFromURI(String uri){
-		return uri = uri.replace(uri.substring((uri.length() -3), uri.length()), "");
+		return uri.replace(uri.substring((uri.length() -3), uri.length()), "");
 	}
 
-    /*public static String removeListAreaIdRegexFromURI(String uri){
-        return uri = uri.replace(uri.substring((uri.length() -4), uri.length()), "");
-    }*/
-
-	/*public static String discoverURI(String uri) {
-		return removeContextURI(uri);
-	}*/
-	
-	/*private static String removeContextURI(String uri) {
-		if(uri.endsWith("/")) {
-			uri = uri.substring(0, (uri.length() -1));
-		}
-		return uri;
-	}*/
 }

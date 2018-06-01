@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.ab.Trello.controller.ApplicationUserController;
 import br.com.ab.Trello.controller.DashboardController;
-import br.com.ab.Trello.exception.WSObjectException;
 import br.com.ab.Trello.model.ApplicationUser;
 import br.com.ab.Trello.model.Dashboard;
 
@@ -26,17 +25,13 @@ public class DashboardServlet extends HttpServlet {
 	private ArrayList<Dashboard> dashboards;
 
 	@Inject
-	ApplicationUserController applicationUserController;
+	private ApplicationUserController applicationUserController;
 
 	@Inject
-	DashboardController dashboardController;
-	
-	//@Inject
-	//ListAreaController listAreaController;
+	private DashboardController dashboardController;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//executeURI(PathDiscover.discoverURI(req.getRequestURI()), req, resp);
 		executeURI(req.getRequestURI(), req, resp);
 	}
 
@@ -94,7 +89,6 @@ public class DashboardServlet extends HttpServlet {
 			int dashboardId = parseDashbaordId(req.getParameter("dashboardId"));
 
 			try {
-				//deleteDashboard(PathDiscover.findObjectId(uri));
 				deleteDashboard(dashboardId);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -103,7 +97,10 @@ public class DashboardServlet extends HttpServlet {
 		
 		} else if (uri.matches(PathDiscover.getUri("DASHBOARD_DETAIL"))) {
 			Dashboard d = dashboardController.findDashboardById(PathDiscover.findObjectId(uri));
+			//List<ListArea> listAreas = d.getListAreas();
+
 			req.setAttribute("dashboard", d);
+			//req.setAttribute("listAreas", listAreas);
 			req.setAttribute("dashboardId", d.getId()); //
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD_DETAIL"));
 		}
@@ -115,7 +112,7 @@ public class DashboardServlet extends HttpServlet {
 		return applicationUserController.findUserById(1);
 	}
 
-	private void addNewDashboard(String dashboardName, ApplicationUser user) throws WSObjectException, Exception {
+	private void addNewDashboard(String dashboardName, ApplicationUser user) {
 		Dashboard d = dashboardController.createDashboard(dashboardName, user);
 		dashboardController.addDashboard(d);
 	}

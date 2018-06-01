@@ -34,10 +34,14 @@
 
                             <div class="my-3 p-3 bg-white rounded box-shadow">
                                 <div class="media text-muted pt-3">
-                                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                                        <strong class="d-block text-gray-dark">@username</strong>
-                                        Donec id
-                                    </p>
+
+                                    <c:forEach var="card" items="${listArea.getCards()}">
+                                        <p class="card-text">
+                                            <strong class="d-block text-gray-dark">${card.getTitle()}</strong>
+                                            Card Comments.
+                                        </p>
+                                    </c:forEach>
+
                                 </div>
 
                                 <small class="d-block text-right mt-3">
