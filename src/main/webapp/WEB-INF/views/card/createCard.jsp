@@ -27,8 +27,9 @@
 			<br>
 		</form>
 
-		<form action="${detailListContextPath}/${listArea.getId()}" method="POST">
+		<form action="${detailListContextPath}" method="POST">
 			<button type="submit" class="btn btn-primary" value="Cancel">Cancel</button>
+            <input type="hidden" name="listAreaId" value="${listArea.getId()}">
 		</form>
 
 	</div>

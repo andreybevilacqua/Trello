@@ -71,7 +71,6 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 
 				if(listAreaName != null) {
 					try {
-						prepareDashboardForListAreaServlet(req.getParameter("dashboardId"), req);
 						addNewListArea(req.getParameter("listName"), this.dashboard);
 						dispatcher = req.getRequestDispatcher(PathDiscover.getUri("DASHBOARD_DETAIL"));
 					} catch (Exception e) {
@@ -79,6 +78,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 					}
 					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), this.dashboardId));
 				} else {
+					prepareDashboardForListAreaServlet(req.getParameter("dashboardId"), req);
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 				}
 			} else if (uri.matches(PathDiscover.getUri("LIST_DELETE"))){
@@ -104,7 +104,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 					} catch (Exception e){
 						e.printStackTrace();
 					}
-					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), dashboardId));
+					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), this.dashboardId));
 				} else{
 					ListArea listArea = findListAreaById(listAreaId);
 					req.setAttribute("listArea", listArea);

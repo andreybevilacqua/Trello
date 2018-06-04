@@ -81,7 +81,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div class="btn-group">
         <br>
-        <form action="${createCardContextPath}}" method="POST">
+        <form action="${createCardContextPath}" method="POST">
             <button type="submit" class="btn btn-primary my-2">Create new Card</button>
             <input type="hidden" name="listAreaId" value="${listArea.getId()}">
         </form>
