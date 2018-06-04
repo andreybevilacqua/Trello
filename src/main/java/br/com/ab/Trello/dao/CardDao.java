@@ -1,7 +1,5 @@
 package br.com.ab.Trello.dao;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -27,6 +25,12 @@ public class CardDao {
 	
 	public void deleteCard(Card card){
 		this.entityManager.remove(card);
+	}
+
+	public void editCardTitle(String cardTitle, int cardId){
+		Card card = this.entityManager.find(Card.class, cardId);
+		card.setTitle(cardTitle);
+		this.entityManager.merge(card);
 	}
 	
 }

@@ -2,6 +2,7 @@ package br.com.ab.Trello.servlet;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Path;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -25,6 +26,8 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 	private static final long serialVersionUID = 1L;
 
 	private Integer dashboardId = 0;
+	private int listAreaId;
+
 	private Dashboard dashboard;
 
 	@Inject
@@ -42,17 +45,23 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
+
+	private void prepareDashboardForListAreaServlet(String stringDashboardId, HttpServletRequest req){
+		this.dashboardId = Integer.parseInt(req.getParameter("dashboardId"));
+		this.dashboard = findDashboardByDashboardId(dashboardId);
+		req.setAttribute("dashboardId", dashboardId);
+	}
 	
 	private void executeURI(String uri, HttpServletRequest req, HttpServletResponse resp) {
 
 		RequestDispatcher dispatcher;
-
-		dashboardId = PathDiscover.findObjectId(uri);
+/*
+        dashboardId = Integer.parseInt(req.getParameter("dashboardId"));
 
 		dashboard = findDashboardByDashboardId(dashboardId);
 
 		req.setAttribute("dashboardId", dashboardId);
-
+*/
 		try {
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 
@@ -62,23 +71,24 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 
 				if(listAreaName != null) {
 					try {
-						addNewListArea(req.getParameter("listName"), dashboard);
+						prepareDashboardForListAreaServlet(req.getParameter("dashboardId"), req);
+						addNewListArea(req.getParameter("listName"), this.dashboard);
 						dispatcher = req.getRequestDispatcher(PathDiscover.getUri("DASHBOARD_DETAIL"));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					resp.sendRedirect(editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL")));
+					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), this.dashboardId));
 				} else {
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 				}
 			} else if (uri.matches(PathDiscover.getUri("LIST_DELETE"))){
-				int listAreaId = parseListAreaId(req.getParameter("listAreaId"));
+				listAreaId = parseListAreaId(req.getParameter("listAreaId"));
 
 				if(listAreaId > -1){
 					deleteListArea(listAreaId);
 
 					dispatcher = req.getRequestDispatcher(PathDiscover.getUri("DASHBOARD_DETAIL"));
-					resp.sendRedirect(editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"))); // Redirect do Dashboard Servlet
+					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), this.dashboardId)); // Redirect do Dashboard Servlet
 				} else {
 					// Retirar o ID do endereço.
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("ERROR_PAGE"));
@@ -86,7 +96,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 			} else if(uri.matches(PathDiscover.getUri("LIST_EDIT"))){
 
 				String listAreaName = req.getParameter("listName");
-				int listAreaId = parseListAreaId(req.getParameter("listAreaId"));
+				listAreaId = parseListAreaId(req.getParameter("listAreaId"));
 
 				if(listAreaName != null){
 					try{
@@ -94,13 +104,18 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 					} catch (Exception e){
 						e.printStackTrace();
 					}
-					resp.sendRedirect(editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL")));
+					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), dashboardId));
 				} else{
 					ListArea listArea = findListAreaById(listAreaId);
 					req.setAttribute("listArea", listArea);
 
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_EDIT"));
 				}
+			} else if (uri.matches(PathDiscover.getUri("LIST_DETAIL"))){
+				listAreaId = parseListAreaId(req.getParameter("listAreaId"));
+				ListArea listArea = listAreaController.findListAreaById(listAreaId);
+				req.setAttribute("listArea", listArea);
+				dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_DETAIL"));
 			}
 			
 			dispatcher.forward(req, resp);
@@ -135,12 +150,6 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 
 	private Dashboard findDashboardByDashboardId(Integer dashboardId){
 		return dashboardController.findDashboardById(dashboardId);
-	}
-
-	private String editRedirectURI(String uri){
-		uri = PathDiscover.removeDashboardIdRegexFromURI(uri);
-		uri = uri.concat(String.valueOf(dashboardId));
-		return uri;
 	}
 
 	private int parseListAreaId(String stringListAreaId){

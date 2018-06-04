@@ -40,7 +40,7 @@ public class Card {
 
 	public ListArea getListArea() { return listArea; }
 
-	public ArrayList<Comment> getComments() { return (ArrayList<Comment>) comments; }
+	public List<Comment> getComments() { return comments; }
 
 	// Sets
 	public void setId(Integer cardId){ this.cardId = cardId; }

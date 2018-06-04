@@ -41,12 +41,5 @@ public class ListAreaDao {
 		listArea.setTitle(listAreaName);
 		this.entityManager.merge(listArea);
 	}
-	
-	/*@SuppressWarnings("unchecked")
-	public ArrayList<ListArea> findAllListAreasFromDashboardByDashboardId(Integer dashboardId){
-		return (ArrayList<ListArea>)entityManager.createQuery("SELECT l FROM ListArea l WHERE l.dashboardId = :dashboardId ")
-					 .setParameter("dashboardId", dashboardId)
-					 .getResultList();
-	}*/
 
 }

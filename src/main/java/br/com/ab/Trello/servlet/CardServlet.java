@@ -25,6 +25,12 @@ public class CardServlet extends HttpServlet {
     @Inject
     private ListAreaController listAreaController;
 
+    private int listAreaId;
+    private int dashboardId;
+    private int cardId;
+
+    private ListArea listArea;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         executeURI(req.getRequestURI(), req, resp);
@@ -35,11 +41,9 @@ public class CardServlet extends HttpServlet {
         doGet(req, resp);
     }
 
-    private void executeURI(String uri, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void executeURI(String uri, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         RequestDispatcher dispatcher;
-
-        int listAreaId = Integer.parseInt(req.getParameter("listAreaId"));
 
         String title = req.getParameter("cardName");
 
@@ -51,28 +55,43 @@ public class CardServlet extends HttpServlet {
 
                 if(title != null){
                     try{
-                        ListArea listArea = findListAreaById(listAreaId);
+                        listArea = findListAreaById(listAreaId);
                         addNewCard(title, listArea);
                     } catch (Exception e){
                         e.printStackTrace();
                     }
-                    resp.sendRedirect(PathDiscover.getUri("DASHBOARD_DETAIL"));
+                    dashboardId = findDashboardIdByListArea(listArea);
+                    resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), dashboardId));
                 } else {
+                    listAreaId = Integer.parseInt(req.getParameter("listAreaId"));
                     dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("CARD_CREATE"));
                 }
 
 
             } else if (uri.matches(PathDiscover.getUri("CARD_DELETE"))) {
 
+                listAreaId = Integer.parseInt(req.getParameter("listAreaId"));
+
             }  else if (uri.matches(PathDiscover.getUri("CARD_EDIT"))) {
 
                 if(title != null){
-
+                    try{
+                        Card card = cardController.findCardById(cardId);
+                        cardController.editCardTitle(title, cardId);
+                        req.setAttribute("dashboardId", card.getListArea().getDashboard().getId());
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    resp.sendRedirect(PathDiscover.getUri("LIST_DETAIL"));
                 } else {
-                    dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("CARD_CREATE"));
+                    cardId = Integer.parseInt(req.getParameter("cardId"));
+                    Card card = cardController.findCardById(cardId);
+                    req.setAttribute("card", card);
+                    dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("CARD_EDIT"));
                 }
             }
 
+            dispatcher.forward(req, resp);
 
         } catch (NullPointerException npex) {
             dispatcher = req.getRequestDispatcher("/");
@@ -93,6 +112,10 @@ public class CardServlet extends HttpServlet {
 
     private ListArea findListAreaById(int listAreaId){
         return listAreaController.findListAreaById(listAreaId);
+    }
+
+    private int findDashboardIdByListArea(ListArea listArea){
+        return listArea.getDashboard().getId();
     }
 
 }

@@ -96,12 +96,9 @@ public class DashboardServlet extends HttpServlet {
 			resp.sendRedirect(PathDiscover.getUri("DASHBOARD")); // Redirect to dashboards page.
 		
 		} else if (uri.matches(PathDiscover.getUri("DASHBOARD_DETAIL"))) {
-			Dashboard d = dashboardController.findDashboardById(PathDiscover.findObjectId(uri));
-			//List<ListArea> listAreas = d.getListAreas();
-
-			req.setAttribute("dashboard", d);
-			//req.setAttribute("listAreas", listAreas);
-			req.setAttribute("dashboardId", d.getId()); //
+			Dashboard dashboard = dashboardController.findDashboardById(PathDiscover.findObjectId(uri));
+			req.setAttribute("dashboard", dashboard);
+			req.setAttribute("dashboardId", dashboard.getId()); //
 			dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("DASHBOARD_DETAIL"));
 		}
 

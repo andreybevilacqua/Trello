@@ -24,12 +24,16 @@ public class CardController {
 		this.cardDao.addCard(card);
 	}
 	
-	public Card findById(Integer cardId) {
+	public Card findCardById(Integer cardId) {
 		return cardDao.findCardById(cardId);
 	}
 	
 	public void deleteCard(Card card) {
 		this.cardDao.deleteCard(card);
+	}
+
+	public void editCardTitle(String cardTitle, int cardId){
+		cardDao.editCardTitle(cardTitle, cardId);
 	}
 
 }

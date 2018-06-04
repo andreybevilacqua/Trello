@@ -41,8 +41,4 @@ public class ListAreaController {
 		listAreaDao.editListAreaTitle(listAreaName, listAreaId);
 	}
 	
-	/*public ArrayList<ListArea> findAllListAreasFromDashboardByDashboardId(Integer dashboardId){
-		return listAreaDao.findAllListAreasFromDashboardByDashboardId(dashboardId);
-	}*/
-
 }

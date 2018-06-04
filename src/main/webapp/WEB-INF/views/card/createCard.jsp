@@ -6,8 +6,7 @@
 <c:url value="/" var="contextPath" />
 <c:url value="/card" var="cardContextPath" />
 <c:url value="/card/create" var="createCardContextPath" />
-<c:url value="/dashboard/detail" var="detailDashboardContextPath" />
-
+<c:url value="/list/detail" var="detailListContextPath" />
 
 <tags:pageTemplate pageTitle="Create Card" bodyClass="bg-light">
 
@@ -28,7 +27,7 @@
 			<br>
 		</form>
 
-		<form action="${detailDashboardContextPath}/${dashboardId}" method="POST">
+		<form action="${detailListContextPath}/${listArea.getId()}" method="POST">
 			<button type="submit" class="btn btn-primary" value="Cancel">Cancel</button>
 		</form>
 

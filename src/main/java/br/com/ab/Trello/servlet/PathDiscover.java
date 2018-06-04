@@ -18,6 +18,7 @@ public final class PathDiscover {
 		maps.put("DASHBOARD_DETAIL", new String[] { "/Trello/dashboard/detail/\\d+", "/WEB-INF/views/dashboard/dashboardDetail.jsp"});
 		
 		// LIST
+		maps.put("LIST_DETAIL", new String[] {"/Trello/list/detail", "/WEB-INF/views/list/listDetail.jsp"});
 		maps.put("LIST_CREATE", new String[] {"/Trello/list/create/\\d+", "/WEB-INF/views/list/createList.jsp"});
         maps.put("LIST_EDIT", new String[] {"/Trello/list/edit/\\d+", "/WEB-INF/views/list/editList.jsp"});
         maps.put("LIST_DELETE", new String[] {"/Trello/list/delete/\\d+", ""});
@@ -41,6 +42,12 @@ public final class PathDiscover {
 
 	public static String removeDashboardIdRegexFromURI(String uri){
 		return uri.replace(uri.substring((uri.length() -3), uri.length()), "");
+	}
+
+	public static String editRedirectURI(String uri, int dashboardId){
+		uri = removeDashboardIdRegexFromURI(uri);
+		uri = uri.concat(String.valueOf(dashboardId));
+		return uri;
 	}
 
 }
