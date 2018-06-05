@@ -46,7 +46,7 @@
 
                                 </div>
 
-                                <form action="${createCardContextPath}" method="POST">
+                                <form action="${createCommentContextPath}" method="POST">
                                     <button class="btn btn-link btn-sm" type="submit">Add Comment</button>
                                     <input type="hidden" name="listAreaId" id="listAreaId" value="${listArea.getId()}">
                                     <input type="hidden" name="cardId" id="cardId" value="${card.getId()}">

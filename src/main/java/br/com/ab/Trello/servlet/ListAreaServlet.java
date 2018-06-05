@@ -82,10 +82,10 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_CREATE"));
 				}
 			} else if (uri.matches(PathDiscover.getUri("LIST_DELETE"))){
-				listAreaId = parseListAreaId(req.getParameter("listAreaId"));
+				this.listAreaId = parseListAreaId(req.getParameter("listAreaId"));
 
-				if(listAreaId > -1){
-					deleteListArea(listAreaId);
+				if(this.listAreaId > -1){
+					deleteListArea(this.listAreaId);
 					prepareDashboardForListAreaServlet(req.getParameter("dashboardId"), req);
 					dispatcher = req.getRequestDispatcher(PathDiscover.getUri("DASHBOARD_DETAIL"));
 					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), this.dashboardId)); // Redirect do Dashboard Servlet
@@ -96,25 +96,25 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 			} else if(uri.matches(PathDiscover.getUri("LIST_EDIT"))){
 
 				String listAreaName = req.getParameter("listName");
-				listAreaId = parseListAreaId(req.getParameter("listAreaId"));
+				this.listAreaId = parseListAreaId(req.getParameter("listAreaId"));
 
 				if(listAreaName != null){
 					try{
-						listAreaController.editListAreaTitle(listAreaName, listAreaId);
+						listAreaController.editListAreaTitle(listAreaName, this.listAreaId);
 					} catch (Exception e){
 						e.printStackTrace();
 					}
 					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), this.dashboardId));
 				} else{
-					ListArea listArea = findListAreaById(listAreaId);
+					ListArea listArea = findListAreaById(this.listAreaId);
 					prepareDashboardForListAreaServlet(req.getParameter("dashboardId"), req);
 					req.setAttribute("listArea", listArea);
 
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_EDIT"));
 				}
 			} else if (uri.matches(PathDiscover.getUri("LIST_DETAIL"))){
-				listAreaId = parseListAreaId(req.getParameter("listAreaId"));
-				ListArea listArea = listAreaController.findListAreaById(listAreaId);
+				this.listAreaId = parseListAreaId(req.getParameter("listAreaId"));
+				ListArea listArea = listAreaController.findListAreaById(this.listAreaId);
 				req.setAttribute("listArea", listArea);
 				dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_DETAIL"));
 			}
