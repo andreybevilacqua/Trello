@@ -31,10 +31,10 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 	private Dashboard dashboard;
 
 	@Inject
-	DashboardController dashboardController;
+	private DashboardController dashboardController;
 
 	@Inject
-	ListAreaController listAreaController;
+	private ListAreaController listAreaController;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -107,6 +107,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), this.dashboardId));
 				} else{
 					ListArea listArea = findListAreaById(listAreaId);
+					prepareDashboardForListAreaServlet(req.getParameter("dashboardId"), req);
 					req.setAttribute("listArea", listArea);
 
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("LIST_EDIT"));
@@ -143,7 +144,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 		listAreaController.deleteListArea(listAreaId);
 	}
 
-	private void addNewListArea(String listName, Dashboard dashboard) throws WSObjectException, Exception {
+	private void addNewListArea(String listName, Dashboard dashboard) throws Exception {
 		ListArea listArea = listAreaController.createListArea(listName, dashboard);
 		listAreaController.addList(listArea);
 	}

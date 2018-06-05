@@ -13,14 +13,14 @@ public final class PathDiscover {
 		
 		// DASHBOARD
 		maps.put("DASHBOARD", new String[] { "/Trello/dashboard", "/WEB-INF/views/dashboard/dashboard.jsp" });
-		maps.put("DASHBOARD_CREATE", new String[] { "/Trello/dashboard/create", "/WEB-INF/views/dashboard/createDashboard.jsp" });
+		maps.put("DASHBOARD_CREATE", new String[] { "/Trello/dashboard/create/", "/WEB-INF/views/dashboard/createDashboard.jsp" });
 		maps.put("DASHBOARD_DELETE", new String[] { "/Trello/dashboard/delete/\\d+", "/WEB-INF/views/dashboard/dashboard.jsp"});
 		maps.put("DASHBOARD_DETAIL", new String[] { "/Trello/dashboard/detail/\\d+", "/WEB-INF/views/dashboard/dashboardDetail.jsp"});
 		
 		// LIST
 		maps.put("LIST_DETAIL", new String[] {"/Trello/list/detail", "/WEB-INF/views/list/listDetail.jsp"});
 		maps.put("LIST_CREATE", new String[] {"/Trello/list/create/\\d+", "/WEB-INF/views/list/createList.jsp"});
-        maps.put("LIST_EDIT", new String[] {"/Trello/list/edit/\\d+", "/WEB-INF/views/list/editList.jsp"});
+        maps.put("LIST_EDIT", new String[] {"/Trello/list/edit", "/WEB-INF/views/list/editList.jsp"});
         maps.put("LIST_DELETE", new String[] {"/Trello/list/delete/\\d+", ""});
 
         // CARD
@@ -32,19 +32,19 @@ public final class PathDiscover {
 		maps.put("ERROR_PAGE", new String[] {"/Trello/error", "/WEB-INF/views/error/errorPage.jsp"});
 	}
 	
-	public static String getUri(String key) { return maps.get(key)[0]; }
+	static String getUri(String key) { return maps.get(key)[0]; }
 	
-	public static String getJsp(String key) { return maps.get(key)[1]; }
+	static String getJsp(String key) { return maps.get(key)[1]; }
 	
-	public static int findObjectId(String uri) {
+	static int findObjectId(String uri) {
 		return Integer.parseInt(uri.replaceAll("[^-?0-9]+", ""));
 	}
 
-	public static String removeDashboardIdRegexFromURI(String uri){
+	private static String removeDashboardIdRegexFromURI(String uri){
 		return uri.replace(uri.substring((uri.length() -3), uri.length()), "");
 	}
 
-	public static String editRedirectURI(String uri, int dashboardId){
+	static String editRedirectURI(String uri, int dashboardId){
 		uri = removeDashboardIdRegexFromURI(uri);
 		uri = uri.concat(String.valueOf(dashboardId));
 		return uri;

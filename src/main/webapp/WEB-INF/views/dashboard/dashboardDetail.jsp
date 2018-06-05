@@ -57,9 +57,10 @@
 
                                 <br>
 
-                                <form action="${editListContextPath}/${dashboard.getId()}" method="POST">
+                                <form action="${editListContextPath}" method="POST">
                                     <button class="btn btn-link btn-sm" type="submit">Edit List</button>
                                     <input type="hidden" name="listAreaId" value="${listArea.getId()}">
+                                    <input type="hidden" name="dashboardId" value="${dashboard.getId()}">
                                 </form>
 
                                 <form action="${deleteListContextPath}/${dashboard.getId()}" method="POST">

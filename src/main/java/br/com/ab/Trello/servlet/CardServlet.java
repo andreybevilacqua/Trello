@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.Path;
 
 @WebServlet(name = "CardServlet", urlPatterns = {"/card", "/card/*"})
 public class CardServlet extends HttpServlet {
@@ -76,16 +77,17 @@ public class CardServlet extends HttpServlet {
 
                 if(title != null){
                     try{
-                        Card card = cardController.findCardById(cardId);
-                        cardController.editCardTitle(title, cardId);
+                        Card card = cardController.findCardById(this.cardId);
+                        cardController.editCardTitle(title, this.cardId);
                         req.setAttribute("dashboardId", card.getListArea().getDashboard().getId());
+                        req.setAttribute("listAreaId", card.getListArea().getId());
                     } catch (Exception e){
                         e.printStackTrace();
                     }
                     resp.sendRedirect(PathDiscover.getUri("LIST_DETAIL"));
                 } else {
-                    cardId = Integer.parseInt(req.getParameter("cardId"));
-                    Card card = cardController.findCardById(cardId);
+                    this.cardId = Integer.parseInt(req.getParameter("cardId"));
+                    Card card = cardController.findCardById(this.cardId);
                     req.setAttribute("card", card);
                     dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("CARD_EDIT"));
                 }

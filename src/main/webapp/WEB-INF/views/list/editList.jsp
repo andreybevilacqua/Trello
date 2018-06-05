@@ -14,7 +14,7 @@
 
         <h1>Edit List</h1>
 
-        <form action="${editListContextPath}/${dashboardId} " method="POST">
+        <form action="${editListContextPath}" method="POST">
 
             <div class="form-group">
                 <label>List name:</label>
