@@ -66,6 +66,7 @@
                                 <form action="${deleteListContextPath}/${dashboard.getId()}" method="POST">
                                     <button type="submit" class="btn btn-link btn-sm" onclick="return confirm('Are you sure you want to Delete?');">Delete List</button>
                                     <input type="hidden" name="listAreaId" value="${listArea.getId()}">
+                                    <input type="hidden" name="dashboardId" value="${dashboard.getId()}">
                                 </form>
 
                             </div>
