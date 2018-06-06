@@ -13,7 +13,7 @@ public final class PathDiscover {
 		
 		// DASHBOARD
 		maps.put("DASHBOARD", new String[] { "/Trello/dashboard", "/WEB-INF/views/dashboard/dashboard.jsp" });
-		maps.put("DASHBOARD_CREATE", new String[] { "/Trello/dashboard/create/", "/WEB-INF/views/dashboard/createDashboard.jsp" });
+		maps.put("DASHBOARD_CREATE", new String[] { "/Trello/dashboard/create", "/WEB-INF/views/dashboard/createDashboard.jsp" });
 		maps.put("DASHBOARD_DELETE", new String[] { "/Trello/dashboard/delete/\\d+", "/WEB-INF/views/dashboard/dashboard.jsp"});
 		maps.put("DASHBOARD_DETAIL", new String[] { "/Trello/dashboard/detail/\\d+", "/WEB-INF/views/dashboard/dashboardDetail.jsp"});
 		

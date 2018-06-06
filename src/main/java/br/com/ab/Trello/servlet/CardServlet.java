@@ -114,6 +114,7 @@ public class CardServlet extends HttpServlet {
             }
 
             dispatcher.forward(req, resp);
+            //resp.sendRedirect(PathDiscover.getUri("LIST_DETAIL"));
 
         } catch (NullPointerException npex) {
             dispatcher = req.getRequestDispatcher("/");
@@ -146,7 +147,7 @@ public class CardServlet extends HttpServlet {
 
     private void setRequestDispatcherAndRespRedirectByPathDiscoverKey(String key, HttpServletRequest req, HttpServletResponse resp) throws IOException {
         this.dispatcher = req.getRequestDispatcher(PathDiscover.getJsp(key));
-        resp.sendRedirect(PathDiscover.getUri(key));
+        //resp.sendRedirect(PathDiscover.getUri(key));
     }
 
 }
