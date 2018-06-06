@@ -32,7 +32,7 @@ public class Dashboard {
 	@JoinColumn(nullable = false)
 	private ApplicationUser applicationUser;
 
-	@OneToMany(mappedBy = "dashboard")
+	@OneToMany(mappedBy = "dashboard", fetch = FetchType.EAGER)
 	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
 	private List<ListArea> listAreas = new ArrayList<ListArea>();
 
