@@ -88,7 +88,7 @@ public class ListAreaServlet extends HttpServlet implements Servlet, ServletConf
 					deleteListArea(this.listAreaId);
 					prepareDashboardForListAreaServlet(req.getParameter("dashboardId"), req);
 					dispatcher = req.getRequestDispatcher(PathDiscover.getUri("DASHBOARD_DETAIL"));
-					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), this.dashboardId)); // Redirect do Dashboard Servlet
+					resp.sendRedirect(PathDiscover.editRedirectURI(PathDiscover.getUri("DASHBOARD_DETAIL"), this.dashboardId));
 				} else {
 					// Retirar o ID do endereço.
 					dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("ERROR_PAGE"));

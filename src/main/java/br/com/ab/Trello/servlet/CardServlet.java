@@ -7,6 +7,8 @@ import br.com.ab.Trello.model.ListArea;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +33,8 @@ public class CardServlet extends HttpServlet {
 
     private ListArea listArea;
 
+    private RequestDispatcher dispatcher;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         executeURI(req.getRequestURI(), req, resp);
@@ -49,7 +53,7 @@ public class CardServlet extends HttpServlet {
 
     private void executeURI(String uri, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        RequestDispatcher dispatcher;
+        //RequestDispatcher dispatcher;
 
         String title = req.getParameter("cardName");
 
@@ -72,13 +76,20 @@ public class CardServlet extends HttpServlet {
                 } else {
                     prepareListAreaForCardServlet(req.getParameter("listAreaId"), req);
                     req.setAttribute("listArea", this.listArea);
-                    dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("CARD_CREATE"));
+                    this.dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("CARD_CREATE"));
                 }
 
 
             } else if (uri.matches(PathDiscover.getUri("CARD_DELETE"))) {
 
-                this.listAreaId = Integer.parseInt(req.getParameter("listAreaId"));
+                this.cardId = Integer.parseInt(req.getParameter("cardId"));
+
+                if(this.cardId > -1){
+                    deleteCard(this.cardId);
+                    setRequestDispatcherAndRespRedirectByPathDiscoverKey("LIST_DETAIL", req, resp);
+                } else{
+                    this.dispatcher = req.getRequestDispatcher(PathDiscover.getJsp("ERROR_PAGE"));
+                }
 
             }  else if (uri.matches(PathDiscover.getUri("CARD_EDIT"))) {
 
@@ -87,12 +98,13 @@ public class CardServlet extends HttpServlet {
                         Card card = cardController.findCardById(this.cardId);
                         cardController.editCardTitle(title, this.cardId);
                         req.setAttribute("card", card);
-                        //req.setAttribute("dashboardId", card.getListArea().getDashboard().getId());
-                        //req.setAttribute("listAreaId", card.getListArea().getId());
+                        req.setAttribute("listAreaId",  card.getListArea().getId());
                     } catch (Exception e){
                         e.printStackTrace();
                     }
-                    resp.sendRedirect(PathDiscover.getUri("LIST_DETAIL"));
+
+                    setRequestDispatcherAndRespRedirectByPathDiscoverKey("LIST_DETAIL", req, resp);
+
                 } else {
                     this.cardId = Integer.parseInt(req.getParameter("cardId"));
                     Card card = cardController.findCardById(this.cardId);
@@ -124,8 +136,17 @@ public class CardServlet extends HttpServlet {
         return listAreaController.findListAreaById(listAreaId);
     }
 
+    private void deleteCard(int cardId){
+        cardController.deleteCard(cardId);
+    }
+
     private int findDashboardIdByListArea(ListArea listArea){
         return listArea.getDashboard().getId();
+    }
+
+    private void setRequestDispatcherAndRespRedirectByPathDiscoverKey(String key, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        this.dispatcher = req.getRequestDispatcher(PathDiscover.getJsp(key));
+        resp.sendRedirect(PathDiscover.getUri(key));
     }
 
 }

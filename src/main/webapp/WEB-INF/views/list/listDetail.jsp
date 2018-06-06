@@ -61,7 +61,7 @@
 
                                 <form action="${deleteCardContextPath}" method="POST">
                                     <button type="submit" class="btn btn-link btn-sm" onclick="return confirm('Are you sure you want to Delete?');">Delete Card</button>
-                                    <input type="hidden" name="listAreaId" value="${listArea.getId()}">
+                                    <input type="hidden" name="cardId" value="${card.getId()}">
                                 </form>
 
                             </div>

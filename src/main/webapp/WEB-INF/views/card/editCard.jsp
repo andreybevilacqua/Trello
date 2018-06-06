@@ -21,7 +21,6 @@
                 <input type="text" name="cardName" class="form-control" value="${card.getTitle()}" required/>
                 <input type="hidden" name="cardId" value="${card.getId()}">
                 <input type="hidden" name="listAreaId" value="${card.getListArea().getId()}">
-                <input type="hidden" name="dashboardId" value="${card.getListArea().getDashboard().getId()}">
             </div>
 
             <button type="submit" class="btn btn-primary" value="Create">Update</button>

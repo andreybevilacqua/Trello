@@ -28,8 +28,8 @@ public class CardController {
 		return cardDao.findCardById(cardId);
 	}
 	
-	public void deleteCard(Card card) {
-		this.cardDao.deleteCard(card);
+	public void deleteCard(int cardId) {
+		this.cardDao.deleteCard(cardId);
 	}
 
 	public void editCardTitle(String cardTitle, int cardId){

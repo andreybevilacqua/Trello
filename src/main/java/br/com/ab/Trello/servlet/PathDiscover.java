@@ -21,12 +21,12 @@ public final class PathDiscover {
 		maps.put("LIST_DETAIL", new String[] {"/Trello/list/detail", "/WEB-INF/views/list/listDetail.jsp"});
 		maps.put("LIST_CREATE", new String[] {"/Trello/list/create/\\d+", "/WEB-INF/views/list/createList.jsp"});
         maps.put("LIST_EDIT", new String[] {"/Trello/list/edit", "/WEB-INF/views/list/editList.jsp"});
-        maps.put("LIST_DELETE", new String[] {"/Trello/list/delete/\\d+", ""});
+        maps.put("LIST_DELETE", new String[] {"/Trello/list/delete", ""});
 
         // CARD
 		maps.put("CARD_CREATE", new String[] {"/Trello/card/create", "/WEB-INF/views/card/createCard.jsp"});
 		maps.put("CARD_EDIT", new String[] {"/Trello/card/edit", "/WEB-INF/views/card/editCard.jsp"});
-		maps.put("CARD_DELETE", new String[] {"Trello/card/delete", ""});
+		maps.put("CARD_DELETE", new String[] {"/Trello/card/delete", ""});
 
         // ERROR
 		maps.put("ERROR_PAGE", new String[] {"/Trello/error", "/WEB-INF/views/error/errorPage.jsp"});

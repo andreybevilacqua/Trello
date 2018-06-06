@@ -23,7 +23,8 @@ public class CardDao {
 		return this.entityManager.find(Card.class, cardId);
 	}
 	
-	public void deleteCard(Card card){
+	public void deleteCard(int cardId){
+		Card card = this.entityManager.find(Card.class, cardId);
 		this.entityManager.remove(card);
 	}
 
