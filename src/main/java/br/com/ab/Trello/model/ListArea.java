@@ -20,7 +20,7 @@ public class ListArea {
 	@JoinColumn(name="dashboardId", nullable = false)
 	private Dashboard dashboard;
 
-	@OneToMany(mappedBy = "listArea")
+	@OneToMany(mappedBy = "listArea", fetch = FetchType.EAGER)
 	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
 	private List<Card> cards = new ArrayList<Card>();
 

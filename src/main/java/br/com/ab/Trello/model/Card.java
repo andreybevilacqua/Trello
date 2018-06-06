@@ -20,7 +20,7 @@ public class Card {
 	@JoinColumn(name = "listId", nullable = false)
 	private ListArea listArea;
 
-	@OneToMany(mappedBy = "card")
+	@OneToMany(mappedBy = "card", fetch = FetchType.EAGER)
 	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
 	private List<Comment> comments = new ArrayList<Comment>();
 
